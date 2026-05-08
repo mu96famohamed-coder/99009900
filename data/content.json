@@ -5608,7 +5608,7 @@
           },
           "a": {
             "en": "No. A properly drafted Special POA in Dubai explicitly states that the agent's authority is strictly limited to the specified purpose, and that no authority beyond that scope is granted under any circumstances. Any action taken outside this scope has no legal validity.",
-            "ar": "⚡ إجراء أونلاين · موافقة على المسودة قبل التوثيق · خدمة في نفس اليوم متاحة",
+            "ar": "لا. الوكالة الخاصة المُحكَمة الصياغة في دبي تنصّ صراحةً على أن صلاحيات الوكيل مقصورة بدقة على الغرض المحدد فيها، وأنه لا تُمنح له أي صلاحيات خارج هذا النطاق تحت أي ظرف. وأي تصرف يقع خارج هذا النطاق يكون باطلاً قانوناً ولا أثر له.",
             "ru": "Нет. Правильно составленная специальная доверенность в Дубае явно указывает, что полномочия агента строго ограничены конкретной указанной задачей. Никакой другой власти нет.",
             "zh": "不。迪拜正确起草的特别授权书明确规定代理人的权力严格限于特定指定任务。没有任何其他权力。",
             "es": "No. Un POA Especial correctamente redactado en Dubái establece explícitamente que la autoridad del apoderado está estrictamente limitada a la tarea específica indicada. No tiene ninguna otra autoridad."
@@ -6006,7 +6006,7 @@
           },
           "a": {
             "en": "Yes. The person can notarize the POA at a UAE embassy abroad, or via our video call notarization service. The document is then attested by MOFA and submitted to the court.",
-            "ar": "في نفس اليوم · مدني وجنائي · جميع المحاكم الإماراتية",
+            "ar": "نعم. يمكن للموكِّل توثيق الوكالة في إحدى سفارات الإمارات بالخارج، أو عبر خدمة التوثيق بمكالمة الفيديو لدينا. ثم يُصدَّق المستند من وزارة الخارجية الإماراتية (MOFA) ويُقدَّم إلى المحكمة المختصة.",
             "ru": "Да. Доверенность может быть нотариально заверена в посольстве ОАЭ за границей либо через наш сервис нотариального заверения по видеосвязи. Документ затем легализуется MOFA и подаётся в суд.",
             "zh": "可以。当事人可在阿联酋驻外使馆办理授权委托书公证，或通过我们的视频通话公证服务远程完成。文件随后将由 MOFA 进行认证，并提交至相关法院。",
             "es": "Sí. La persona puede notarizar el poder en una embajada de los EAU en el extranjero, o mediante nuestro servicio de notarización por videollamada. El documento es posteriormente autenticado por el MOFA y presentado ante el tribunal."
@@ -6322,7 +6322,7 @@
           },
           "a": {
             "en": "For UAE departures it must be in Arabic or include a certified Arabic translation. We provide bilingual consent letters in Arabic and English as standard.",
-            "ar": "في نفس اليوم · عربي وإنجليزي · مقبول في المطارات",
+            "ar": "بالنسبة للسفر من الإمارات، يجب أن تكون الرسالة باللغة العربية، أو أن تتضمن ترجمة عربية معتمدة. ونوفّر رسائل الموافقة بصيغة ثنائية اللغة (عربي وإنجليزي) كمعيار قياسي في كل وثائقنا.",
             "ru": "При выезде из ОАЭ документ должен быть составлен на арабском языке или содержать заверенный перевод на арабский. Мы в стандартном порядке предоставляем двуязычные согласия на арабском и английском.",
             "zh": "由阿联酋出境时，文件须以阿拉伯语撰写或附经认证的阿拉伯语译文。我们标准提供阿拉伯语与英语双语同意书。",
             "es": "Para las salidas desde los EAU, debe estar en árabe o incluir una traducción jurada al árabe. Proporcionamos cartas de consentimiento bilingües en árabe e inglés como estándar."
@@ -6575,7 +6575,7 @@
           },
           "a": {
             "en": "No. Each heir can issue their own POA to the same representative, or multiple heirs can collectively authorize one person in a single notarized document.",
-            "ar": "شؤون التركة · جميع الجنسيات · مقبول من المحاكم",
+            "ar": "لا. يستطيع كل وارث إصدار وكالته الخاصة لصالح الممثل ذاته، أو يمكن لعدة ورثة تخويل شخص واحد بصورة مشتركة في مستند واحد موثَّق.",
             "ru": "Нет. Каждый наследник вправе оформить собственную доверенность на одного и того же представителя, либо несколько наследников могут совместно уполномочить одно лицо в рамках единого нотариально заверенного документа.",
             "zh": "不需要。每位继承人均可单独向同一位代理人出具授权委托书；多位继承人亦可在同一份公证文件中共同授权一位代表。",
             "es": "No. Cada heredero puede otorgar su propio poder notarial al mismo representante, o varios herederos pueden autorizar conjuntamente a una sola persona en un único documento notarizado."
@@ -6804,7 +6804,7 @@
           },
           "a": {
             "en": "For most free zones — yes. For mainland DED companies, some steps may require a physical presence for Emirates ID / visa processing, but many formation steps can be handled by a POA holder. We advise on what is achievable remotely for your specific case.",
-            "ar": "خوّل ممثلاً لإتمام تسجيل شركتك الإماراتية نيابةً عنك",
+            "ar": "في معظم المناطق الحرة — نعم. أما شركات البر الرئيسي المرخَّصة من دائرة التنمية الاقتصادية (DED)، فبعض الإجراءات قد تستوجب الحضور الشخصي لإصدار الهوية الإماراتية أو التأشيرة، لكن الكثير من خطوات التأسيس يمكن إنجازها عبر صاحب الوكالة. وفي كل الأحوال، نرشدك إلى ما يمكن تحقيقه عن بُعد بحسب وضعك تحديداً.",
             "ru": "Для большинства свободных зон — да. Для компаний материковой части ОАЭ некоторые шаги могут потребовать физического присутствия для Emirates ID и проверки биометрических данных.",
             "zh": "对于大多数自由区——是的。对于大陆DED公司，一些步骤可能需要亲自到场进行阿联酋身份证和生物特征核实。",
             "es": "Para la mayoría de las zonas francas — sí. Para empresas continentales de DED, algunos pasos pueden requerir presencia física para Emirates ID y verificación biométrica."
@@ -6836,7 +6836,7 @@
           },
           "a": {
             "en": "Specific enough to cover all required formation steps, but not so broad that it raises concerns with authorities. We review your formation plan and draft a POA that is precisely scoped for your situation.",
-            "ar": "التوقيع على عقد التأسيس والنظام الأساسي وتوثيقه",
+            "ar": "يجب أن تكون محددة بدقة كافية لتغطية جميع خطوات التأسيس المطلوبة، دون أن تتسع صلاحياتها إلى حدّ يُثير تحفّظات الجهات الحكومية. نراجع خطتك التأسيسية ونصوغ وكالة محكمة النطاق تتناسب تماماً مع حالتك.",
             "ru": "Достаточно конкретный, чтобы охватывать все необходимые шаги регистрации, но не настолько широкий, чтобы вызывать опасения у властей или банков.",
             "zh": "足够具体以涵盖所有必要的注册步骤，但不要过于宽泛以引起当局或银行的顾虑。",
             "es": "Suficientemente específico para cubrir todos los pasos de constitución requeridos, pero no tan amplio que genere preocupaciones en las autoridades o bancos."
@@ -7070,7 +7070,7 @@
           },
           "a": {
             "en": "Under UAE law, a valid gift (Hiba) must be unconditional and irrevocable once accepted by the recipient. A conditional gift transfer may not be accepted by DLD. If you need conditions attached to a property transfer, a sale agreement or trust structure may be more appropriate — we can advise.",
-            "ar": "وكالة موثّق لنقل ملكية عقار كهبة للعائلة — بصيغة دائرة الأراضي",
+            "ar": "بموجب القانون الإماراتي، يجب أن تكون الهبة الصحيحة غير مشروطة وغير قابلة للرجوع عنها فور قبول الموهوب له لها. وقد لا تقبل دائرة الأراضي والأملاك (DLD) أي هبة مشروطة. وإذا كنت بحاجة لربط شروط بنقل ملكية العقار، فقد يكون اللجوء إلى عقد بيع أو هيكلة عبر صندوق ائتمان (Trust) أنسب لحالتك — يسعدنا تقديم المشورة في ذلك.",
             "ru": "По законодательству ОАЭ действительный дар (Хиба) должен быть безусловным и безотзывным после принятия получателем. Нотариально заверенная доверенность на дарение обеспечивает правильное выполнение передачи.",
             "zh": "根据阿联酋法律，有效的礼物（Hiba）一旦被受赠人接受，必须是无条件且不可撤销的。公证的赠予授权书确保转让正确进行。",
             "es": "Bajo la ley de los EAU, un regalo válido (Hiba) debe ser incondicional e irrevocable una vez aceptado por el receptor. Un POA de donación de propiedad notarizado asegura que la transferencia se realice correctamente."
@@ -7414,7 +7414,7 @@
           },
           "a": {
             "en": "Yes. A single POA can authorize a representative to handle all employee-related transactions for your company without limitation.",
-            "ar": "في نفس اليوم · للشركات والأفراد · مقبول من الوزارة",
+            "ar": "نعم. يمكن لوكالة واحدة أن تُخوِّل ممثلاً واحداً للقيام بجميع المعاملات المتعلقة بموظفي شركتك في الوزارة دون تحديد عدد الموظفين.",
             "ru": "Да. Одна доверенность может уполномочить представителя для всех операций, связанных с сотрудниками вашей компании, без ограничений.",
             "zh": "是的。一份授权书可以授权代表无限制地处理您公司的所有员工相关事务。",
             "es": "Sí. Un solo POA puede autorizar a un representante a gestionar todas las transacciones relacionadas con empleados de su empresa sin limitación."
@@ -7657,7 +7657,7 @@
           },
           "a": {
             "en": "Emirates ID, passport, and Title Deed. We confirm exact requirements for your property type.",
-            "ar": "فوّض شخصاً لبيع عقارك في دبي — متوافق مع DLD وموثق بالكامل",
+            "ar": "بطاقة الهوية الإماراتية، وجواز السفر، وسند الملكية (Title Deed). ونتأكد من المتطلبات الدقيقة بحسب نوع عقارك قبل البدء.",
             "ru": "Emirates ID, паспорт и свидетельство о праве собственности. Мы подтверждаем точные требования для вашего типа недвижимости.",
             "zh": "阿联酋身份证、护照和房产证。我们确认您房产类型的确切要求。",
             "es": "Emirates ID, pasaporte y Título de Propiedad. Confirmamos los requisitos exactos para su tipo de propiedad."
@@ -7963,7 +7963,7 @@
           },
           "a": {
             "en": "Yes. A notarized Purchase POA lets your agent complete the entire DLD registration on your behalf.",
-            "ar": "فوّض وكيلاً لشراء عقار في دبي نيابةً عنك — موثق بالكامل ومتوافق مع DLD",
+            "ar": "نعم. تتيح لك وكالة الشراء الموثَّقة أن يُتمّ وكيلك جميع إجراءات التسجيل لدى دائرة الأراضي والأملاك (DLD) نيابةً عنك بالكامل.",
             "ru": "Да. Нотариально заверенная доверенность на покупку позволяет вашему агенту завершить всю регистрацию DLD от вашего имени.",
             "zh": "是的。经公证的购买授权书允许您的代理人代表您完成整个DLD登记。",
             "es": "Sí. Un POA de compra notarizado permite a su apoderado completar todo el registro DLD en su nombre."
@@ -8269,7 +8269,7 @@
           },
           "a": {
             "en": "Yes, if explicitly included in the POA. We draft the authority to match your exact needs.",
-            "ar": "فوّض وكيلاً لإدارة عقارك — تأجير وتحصيل إيجار وصيانة وعلاقات مستأجرين",
+            "ar": "نعم، شريطة النص على ذلك صراحةً ضمن الوكالة. نصوغ صلاحيات الوكيل بدقة لتتطابق مع احتياجاتك تماماً.",
             "ru": "Да, если это явно включено в доверенность. Мы составляем полномочия в соответствии с вашими точными потребностями.",
             "zh": "是的，如果明确包含在授权书中。我们根据您的确切需求起草授权。",
             "es": "Sí, si se incluye explícitamente en el POA. Redactamos la autoridad para adaptarse a sus necesidades exactas."
@@ -8520,7 +8520,7 @@
           },
           "a": {
             "en": "Emirates ID, passport copy, and the vehicle Mulkiya. We prepare everything else.",
-            "ar": "فوّض شخصاً لبيع سيارتك في دبي — موثق بالكامل ومقبول من RTA",
+            "ar": "بطاقة الهوية الإماراتية، وصورة من جواز السفر، وملكية المركبة (Mulkiya). ونتولى إعداد كل ما عدا ذلك من وثائق.",
             "ru": "Emirates ID, копия паспорта и Мулькия автомобиля. Всё остальное мы подготовим.",
             "zh": "阿联酋身份证、护照复印件和车辆Mulkiya。其余一切由我们准备。",
             "es": "Emirates ID, copia del pasaporte y Mulkiya del vehículo. Todo lo demás lo preparamos nosotros."
@@ -8763,7 +8763,7 @@
           },
           "a": {
             "en": "Yes. A notarized Vehicle Export POA lets your agent handle the full process.",
-            "ar": "فوّض وكيلاً لإتمام جميع إجراءات التصدير — جمارك وإلغاء تسجيل ووثائق شحن",
+            "ar": "نعم. تتيح وكالة تصدير المركبات الموثَّقة لوكيلك إنجاز كامل إجراءات التصدير نيابةً عنك.",
             "ru": "Да. Нотариально заверенная доверенность на экспорт транспортного средства позволяет вашему агенту провести весь процесс.",
             "zh": "是的。经公证的车辆出口授权书允许您的代理人处理整个流程。",
             "es": "Sí. Un POA de exportación de vehículo notarizado permite a su apoderado gestionar todo el proceso."
@@ -9006,7 +9006,7 @@
           },
           "a": {
             "en": "Yes. We can include multiple specified vehicles in a single POA.",
-            "ar": "فوّض وكيلاً لإدارة مركبتك باستمرار — تجديد تسجيل وتأمين وإصلاحات وأكثر",
+            "ar": "نعم. يمكننا تضمين عدة مركبات محددة الأرقام في وكالة واحدة.",
             "ru": "Да. Мы можем включить несколько указанных транспортных средств в одну доверенность.",
             "zh": "是的。我们可以在一份授权书中包含多辆指定车辆。",
             "es": "Sí. Podemos incluir múltiples vehículos especificados en un solo POA."
@@ -11204,7 +11204,7 @@
           },
           "a": {
             "en": "A legal notice in Dubai must be delivered through one of two recognized channels: by a UAE Notary Public, or via a licensed Tableegh (notification) company. Delivery by WhatsApp, email, or regular mail has no legal standing before UAE courts.",
-            "ar": "⚡ خدمة في نفس اليوم · تقديم المستندات أونلاين · موافقة على المسودة قبل التوثيق · يشمل التسليم عبر تبليغ",
+            "ar": "يجب تسليم الإنذار القانوني في دبي عبر إحدى قناتَين معترف بهما حصراً: إما الكاتب العدل الإماراتي، أو شركة تبليغ مرخّصة. أما التسليم عبر WhatsApp أو البريد الإلكتروني أو البريد العادي فلا يُعتدّ به أمام المحاكم الإماراتية.",
             "ru": "Юридическое уведомление в Дубае должно быть доставлено по одному из двух признанных каналов: нотариусом ОАЭ или лицензированной компанией Tableegh. Любой другой метод юридически недействителен.",
             "zh": "迪拜的法律通知必须通过两种公认渠道之一送达：阿联酋公证人或持牌Tableegh公司。任何其他方式在法律上无效。",
             "es": "Una notificación legal en Dubái debe entregarse a través de uno de los dos canales reconocidos: por un Notario Público de los EAU, o mediante una empresa Tableegh con licencia. Cualquier otro método es legalmente inválido."
@@ -12711,7 +12711,7 @@
           },
           "a": {
             "en": "Not necessarily. We offer remote notarization via our Remote E-Notary service, which is fully valid. For clients outside Dubai or abroad, this is the most convenient option.",
-            "ar": "تواصل معنا لتقييم متطلباتك وتقديم عرض سعر شامل.",
+            "ar": "ليس بالضرورة. نوفّر التوثيق عن بُعد عبر خدمة الكاتب العدل الإلكتروني، وهو توثيق صحيح ومعتمد بالكامل قانونياً. ويُعدّ هذا الخيار الأنسب للعملاء الموجودين خارج دبي أو خارج الإمارات.",
             "ru": "Не обязательно. Мы предлагаем дистанционное нотариальное заверение через сервис Remote E-Notary, имеющее полную юридическую силу. Для клиентов за пределами Дубая или за границей это наиболее удобный вариант.",
             "zh": "不一定。我们提供远程电子公证服务（Remote E-Notary），具备完整法律效力。对于身处迪拜以外或海外的客户，这是最便捷的选择。",
             "es": "No necesariamente. Ofrecemos notarización remota a través de nuestro servicio Remote E-Notary, que tiene plena validez legal. Para clientes fuera de Dubái o en el extranjero, esta es la opción más conveniente."
@@ -13232,7 +13232,7 @@
           },
           "a": {
             "en": "Yes — the original must be presented for verification. For video call notarization, you show the original on camera.",
-            "ar": "تواصل معنا لتقييم متطلباتك وتقديم عرض سعر شامل.",
+            "ar": "نعم — يجب تقديم المستند الأصلي للتحقق منه. وفي حالة التوثيق عبر مكالمة الفيديو، يُكتفى بعرض الأصل أمام الكاميرا.",
             "ru": "Да — оригинал должен быть представлен для проверки. При видеозвонке вы показываете оригинал на камере.",
             "zh": "是的——必须出示原件进行核实。视频通话公证时，您在摄像头前展示原件。",
             "es": "Sí — el original debe presentarse para verificación. Para la notarización por videollamada, muestra el original en cámara."
@@ -13248,7 +13248,7 @@
           },
           "a": {
             "en": "No official expiry, but many authorities require copies issued within 3–6 months. Recommend fresh copies for each new application.",
-            "ar": "تواصل معنا لتقييم متطلباتك وتقديم عرض سعر شامل.",
+            "ar": "لا يوجد تاريخ انتهاء رسمي للنسخة المصدقة، غير أن كثيراً من الجهات الإماراتية تشترط أن تكون النسخة صادرة خلال آخر 3 إلى 6 أشهر. لذلك يُنصح باستخراج نسخة حديثة عند تقديم كل طلب جديد.",
             "ru": "Официального срока действия нет, но многие органы требуют копии, выданные в течение 3–6 месяцев. Рекомендуется получать свежие копии для каждого заявления.",
             "zh": "无官方有效期，但许多机构要求在3-6个月内签发的副本。建议为每份新申请获取最新副本。",
             "es": "Sin vencimiento oficial, pero muchas autoridades requieren copias emitidas dentro de 3-6 meses. Se recomiendan copias recientes para cada nueva solicitud."
@@ -13633,7 +13633,7 @@
           },
           "a": {
             "en": "A foreign Will may be recognized in the UAE but it must go through a legal recognition process — which can be lengthy and uncertain. A UAE-notarized Will removes this uncertainty entirely and ensures your wishes are implemented without delay.",
-            "ar": "وصية مُعدَّة احترافياً وموثَّقة للمغتربين والمقيمين في دبي",
+            "ar": "الوصية الأجنبية قد يُعترف بها في الإمارات، غير أنها تستلزم المرور بإجراءات اعتراف قانوني قد تكون طويلة وغير مضمونة النتائج. أما الوصية الموثَّقة داخل الإمارات فتُلغي هذا الغموض كلياً، وتضمن تنفيذ رغباتك دون تأخير أو نزاع.",
             "ru": "Иностранное завещание может быть признано в ОАЭ, но оно должно пройти процесс юридического признания, который может быть длительным и дорогостоящим. Нотариально заверенное завещание в ОАЭ значительно проще.",
             "zh": "外国遗嘱可能在阿联酋被承认，但必须经过法律认可程序——这可能耗时且昂贵。阿联酋公证遗嘱要简单得多。",
             "es": "Un testamento extranjero puede ser reconocido en los EAU, pero debe pasar por un proceso de reconocimiento legal — que puede ser largo y costoso. Un testamento notarizado en los EAU es significativamente más simple."
@@ -13665,7 +13665,7 @@
           },
           "a": {
             "en": "Yes — a Will can be updated or replaced at any time. A new notarized Will supersedes any previous Will. We recommend reviewing your Will whenever there is a significant life change — marriage, children, major asset acquisition, or relocation.",
-            "ar": "للأفراد — تشمل جميع الأصول الإماراتية والدولية",
+            "ar": "نعم — يمكنك تعديل وصيتك أو استبدالها في أي وقت. فأي وصية جديدة موثَّقة تنسخ كل ما سبقها من وصايا. ويُوصى بمراجعة الوصية عند كل تغيّر جوهري في حياتك، كالزواج، أو إنجاب أطفال، أو اقتناء أصول كبرى، أو الانتقال للسكن في بلد آخر.",
             "ru": "Да — завещание можно обновить или заменить в любое время. Новое нотариально заверенное завещание заменяет предыдущее. Мы рекомендуем пересматривать завещание при любых существенных жизненных изменениях.",
             "zh": "是的——遗嘱可以随时更新或替换。新的公证遗嘱取代之前的遗嘱。我们建议在任何重大生活变化时修订遗嘱。",
             "es": "Sí — un testamento puede actualizarse o reemplazarse en cualquier momento. Un nuevo testamento notarizado reemplaza cualquier testamento anterior. Recomendamos revisar el testamento ante cualquier cambio de vida importante."
@@ -13681,7 +13681,7 @@
           },
           "a": {
             "en": "The contents of your Will remain confidential during your lifetime. The notarial record confirms a Will exists and is notarized — but the content is only disclosed to authorized parties upon your passing.",
-            "ar": "تُعيّن أوصياء قانونيين على الأطفال القاصرين",
+            "ar": "يبقى مضمون الوصية سرّياً مدى حياتك. يُثبت السجل التوثيقي وجود الوصية وتوثيقها فحسب، أما محتواها فلا يُكشف إلا للأطراف المخوَّلة قانوناً بعد الوفاة.",
             "ru": "Содержимое вашего завещания остаётся конфиденциальным при вашей жизни. Нотариальная запись подтверждает существование завещания без раскрытия его содержания.",
             "zh": "您遗嘱的内容在您有生之年保密。公证记录确认遗嘱存在，但不披露其内容。",
             "es": "El contenido de su testamento permanece confidencial durante su vida. El registro notarial confirma la existencia del testamento sin revelar su contenido."
@@ -14061,7 +14061,7 @@
           },
           "a": {
             "en": "Yes. POAs granted abroad but used in the UAE can be cancelled through UAE notarial channels. The process may vary slightly depending on the original jurisdiction — WhatsApp us with the details.",
-            "ar": "تواصل معنا لتقييم متطلباتك وتقديم عرض سعر شامل.",
+            "ar": "نعم. الوكالات الصادرة خارج الإمارات والمستخدَمة داخلها يمكن إلغاؤها عبر قنوات التوثيق الإماراتية. وقد تختلف الإجراءات قليلاً تبعاً للدولة الأصلية مُصدِرة الوكالة — راسلنا عبر WhatsApp بتفاصيل حالتك للتأكد من الخطوات المطلوبة.",
             "ru": "Да. Доверенности, выданные за рубежом, но используемые в ОАЭ, могут быть отозваны через нотариальные каналы ОАЭ. Процедура может незначительно отличаться в зависимости от изначальной юрисдикции — свяжитесь с нами через WhatsApp и предоставьте детали.",
             "zh": "可以。在境外签发但于阿联酋使用的授权委托书，可通过阿联酋公证渠道予以撤销。具体程序可能因原签发司法管辖区略有不同——请通过 WhatsApp 与我们联系并提供详情。",
             "es": "Sí. Los poderes notariales otorgados en el extranjero pero utilizados en los EAU pueden cancelarse a través de los canales notariales emiratíes. El proceso puede variar ligeramente según la jurisdicción de origen — contáctenos por WhatsApp con los detalles."
@@ -14498,7 +14498,7 @@
           },
           "a": {
             "en": "We can prepare and have an urgent Power of Attorney notarized the same day you contact us, provided you reach out before 2 PM. We prioritize document preparation, arrange an expedited Notary Public appointment, and deliver the completed document the same day.",
-            "ar": "جميع الأنواع — عامة، عقارية، مصرفية، مركبة، قضائية",
+            "ar": "يمكننا إعداد وكالة قانونية عاجلة وتوثيقها في نفس يوم تواصلكم معنا، شريطة الاتصال بنا قبل الساعة 2 ظهراً. نمنح أولوية قصوى لإعداد المستند، وننسّق موعداً عاجلاً لدى الكاتب العدل، ونسلّم الوكالة النهائية في نفس اليوم.",
             "ru": "Мы можем подготовить и нотариально заверить срочную доверенность в тот же день, когда вы свяжетесь с нами, при условии обращения до 14:00 в будний день.",
             "zh": "只要您在工作日下午2点前联系我们，我们可以在您联系当天准备并公证紧急授权书。",
             "es": "Podemos preparar y notarizar un Poder Notarial urgente el mismo día que nos contacte, siempre que nos contacte antes de las 2 PM en un día hábil."
@@ -14514,7 +14514,7 @@
           },
           "a": {
             "en": "We accept urgent requests 7 days a week. Government notary offices (Dubai Courts) operate Sunday to Thursday. For Friday/Saturday urgent requests, we arrange what is possible and advise on the fastest available route.",
-            "ar": "أي نوع، أي لغة، يُعدّ ويُوثَّق في نفس اليوم",
+            "ar": "نستقبل الطلبات العاجلة طوال أيام الأسبوع. مكاتب الكاتب العدل الحكومية (محاكم دبي) تعمل من الأحد إلى الخميس. أما طلبات يومَي الجمعة والسبت العاجلة، فنرتّب ما يمكن إنجازه ضمن القنوات المتاحة، ونرشدك إلى أسرع مسار ممكن لإتمام التوثيق.",
             "ru": "Мы принимаем срочные запросы 7 дней в неделю. Государственные нотариальные офисы (суды Дубая) работают с воскресенья по четверг. Мы координируем срочное выполнение в рамках рабочих часов.",
             "zh": "我们每周7天接受紧急请求。政府公证办公室（迪拜法院）周日至周四营业。我们在工作时间内协调紧急完成。",
             "es": "Aceptamos solicitudes urgentes 7 días a la semana. Las oficinas notariales gubernamentales (Tribunales de Dubái) operan de domingo a jueves. Coordinamos la tramitación urgente dentro del horario laboral."
@@ -17561,7 +17561,7 @@
           },
           "a": {
             "en": "Yes. Provide the company details and the decision to be recorded — we draft and notarize same day.",
-            "ar": "في نفس اليوم · جميع أنواع الشركات · مقبول من البنوك ودائرة الأراضي",
+            "ar": "نعم. يكفي تزويدنا ببيانات الشركة والقرار المراد تدوينه، ونتولّى صياغته وتوثيقه في نفس اليوم.",
             "ru": "Да. Предоставьте данные компании и решение — мы составим и заверим в тот же день.",
             "zh": "是的。提供公司详情和需记录的决定——我们当天起草并公证。",
             "es": "Sí. Proporcione los datos de la empresa y la decisión a registrar — redactamos y notarizamos el mismo día."
@@ -18347,7 +18347,7 @@
           },
           "a": {
             "en": "Emirates ID, Trade License, MOA, and share certificates. We confirm your exact requirements.",
-            "ar": "فوّض وكيلاً لنقل أسهم الشركة أو حصصها نيابةً عنك — متوافق مع القانون الإماراتي",
+            "ar": "بطاقة الهوية الإماراتية، والرخصة التجارية، وعقد التأسيس (MOA)، وشهادات الحصص. ونتأكد من المتطلبات الدقيقة الخاصة بحالتك قبل البدء بالإجراءات.",
             "ru": "Emirates ID, торговая лицензия, MOA и акционерные сертификаты. Мы подтверждаем ваши точные требования.",
             "zh": "阿联酋身份证、营业执照、公司章程和股权证书。我们确认您的确切要求。",
             "es": "Emirates ID, Licencia Comercial, MOA y certificados de acciones. Confirmamos sus requisitos exactos."
@@ -19285,7 +19285,7 @@
           },
           "a": {
             "en": "Yes. We draft liquidation POAs accepted by JAFZA, DMCC, IFZA, and all major Free Zones.",
-            "ar": "فوّض وكيلاً للتعامل مع إجراءات تصفية الشركة وإغلاقها في دبي",
+            "ar": "نعم. نتولّى صياغة وكالات التصفية المعتمدة لدى المناطق الحرة الكبرى — جافزا (JAFZA)، ومركز دبي للسلع المتعددة (DMCC)، والمنطقة الحرة الدولية (IFZA)، وسائر المناطق الحرة الرئيسية في دبي.",
             "ru": "Да. Мы составляем доверенности на ликвидацию, принимаемые JAFZA, DMCC, IFZA и всеми крупными свободными зонами.",
             "zh": "是的。我们起草JAFZA、DMCC、IFZA及所有主要自由区接受的清算授权书。",
             "es": "Sí. Redactamos POA de liquidación aceptados por JAFZA, DMCC, IFZA y todas las principales Zonas Francas."
