@@ -10,19 +10,11 @@ interface Props {
 
 const DEFAULT_MSG = {
   en: 'I need notary support in Dubai',
-  ar: 'أحتاج مساعدة في التوثيق بدبي',
-  ru: 'Мне нужна нотариальная поддержка в Дубае',
-  zh: '我需要迪拜公证支持',
-  es: 'Necesito soporte notarial en Dubái',
-}
+  ar: 'أحتاج مساعدة في التوثيق بدبي' }
 
 const TOOLTIP = {
   en: 'Reply in 5 min',
-  ar: 'رد خلال 5 دقائق',
-  ru: 'Ответ за 5 мин',
-  zh: '5分钟内回复',
-  es: 'Respuesta en 5 min',
-}
+  ar: 'رد خلال 5 دقائق' }
 
 const WA_SVG = (
   <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -69,14 +61,14 @@ export default function FloatingWA({ lang, message }: Props) {
           }`}
           style={{ insetInlineEnd: 0 }}
         >
-          <div className="bg-navy-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg relative">
+          <div className="bg-ink-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg relative">
             ⚡ {tooltip}
             <div
               className="absolute top-full"
               style={{ insetInlineEnd: '1rem', width: 0, height: 0,
                 borderLeft: '5px solid transparent',
                 borderRight: '5px solid transparent',
-                borderTop: '5px solid #0a1628'
+                borderTop: '5px solid #0C1A27'
               }}
             />
           </div>
@@ -101,17 +93,16 @@ export default function FloatingWA({ lang, message }: Props) {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top"
-          className="fixed z-40 flex items-center justify-center rounded-full transition-all duration-200 hover:scale-110 hover:bg-navy-700"
+          className="fixed z-40 flex items-center justify-center rounded-full transition-all duration-200 hover:scale-110 hover:bg-ink-700"
           style={{
             bottom: '5.5rem',
             insetInlineEnd: '1.5rem',
             width: '2.5rem',
             height: '2.5rem',
-            background: '#0a1628',
-            border: '1px solid #1a3a5c',
+            background: '#0C1A27',
+            border: '1px solid #1E3A52',
             color: 'white',
-            boxShadow: '0 2px 12px rgba(0,0,0,.3)',
-          }}
+            boxShadow: '0 2px 12px rgba(0,0,0,.3)' }}
         >
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round"/>

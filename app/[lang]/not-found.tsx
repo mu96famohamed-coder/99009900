@@ -1,29 +1,85 @@
-import Link from 'next/link'
+'use client'
+import { usePathname } from 'next/navigation'
 
-const LABELS: Record<string, { title: string; desc: string; btn: string }> = {
-  en: { title: 'Page Not Found', desc: 'The page you are looking for does not exist.', btn: 'Back to Home' },
-  ar: { title: 'الصفحة غير موجودة', desc: 'الصفحة التي تبحث عنها غير موجودة.', btn: 'العودة للرئيسية' },
-  ru: { title: 'Страница не найдена', desc: 'Запрашиваемая страница не существует.', btn: 'На главную' },
-  zh: { title: '页面未找到', desc: '您要找的页面不存在。', btn: '返回首页' },
-  es: { title: 'Página No Encontrada', desc: 'La página que busca no existe.', btn: 'Volver al Inicio' },
-}
+const T = {
+  en: { kicker: 'Page not found', lead: 'We couldn\'t find', em: 'what you were looking for.', sub: 'The page may have moved, or the link is incomplete.', btn: 'Back to home' },
+  ar: { kicker: 'الصفحة غير موجودة', lead: 'لم نتمكن من إيجاد', em: 'ما كنت تبحث عنه.', sub: 'ربما تم نقل الصفحة، أو أن الرابط غير مكتمل.', btn: 'العودة للرئيسية' } }
 
-export default function NotFound() {
-  // We can't get lang params in not-found, default to English
-  const label = LABELS.en
+export default function LangNotFound() {
+  const pathname = usePathname()
+  const lang = (pathname?.split('/')[1] as keyof typeof T) || 'en'
+  const tx = T[lang] || T.en
+  const homeHref = `/${lang in T ? lang : 'en'}`
+  const isRTL = lang === 'ar'
+  const serif = isRTL ? 'Amiri, serif' : 'Instrument Serif, serif'
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-navy-50 text-center px-4">
-      <div>
-        <div className="text-6xl font-serif font-bold text-gold-500 mb-4">404</div>
-        <h1 className="text-2xl font-bold text-navy-900 mb-3">{label.title}</h1>
-        <p className="text-navy-500 mb-8">{label.desc}</p>
-        <Link
-          href="/en"
-          className="inline-flex items-center gap-2 bg-navy-900 text-gold-400 font-bold px-8 py-3 rounded-xl hover:bg-navy-800 transition-colors"
+    <div
+      dir={isRTL ? 'rtl' : 'ltr'}
+      style={{
+        minHeight: '70vh',
+        background: '#FDF8F1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '4rem 2rem' }}
+    >
+      <div style={{ maxWidth: '560px' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          marginBottom: '24px' }}>
+          <span style={{ display: 'block', width: '32px', height: '1px', background: 'rgba(232, 90, 60, 0.6)' }} />
+          <span style={{ fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E85A3C', fontWeight: 500 }}>
+            404 · {tx.kicker}
+          </span>
+          <span style={{ display: 'block', width: '32px', height: '1px', background: 'rgba(232, 90, 60, 0.6)' }} />
+        </div>
+
+        <h1 style={{
+          fontFamily: serif,
+          fontSize: 'clamp(32px, 5vw, 52px)',
+          lineHeight: '1.05',
+          color: '#1E3A52',
+          margin: 0,
+          fontWeight: 400,
+          letterSpacing: '-0.015em' }}>
+          {tx.lead}
+          <br/>
+          <em style={{ color: '#E85A3C', fontStyle: 'italic' }}>
+            {tx.em}
+          </em>
+        </h1>
+
+        <p style={{
+          fontFamily: serif,
+          fontStyle: 'italic',
+          fontSize: '17px',
+          lineHeight: '1.65',
+          color: 'rgba(30, 58, 82, 0.7)',
+          margin: '24px auto 32px',
+          maxWidth: '460px' }}>
+          {tx.sub}
+        </p>
+
+        <a
+          href={homeHref}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            background: '#1E3A52',
+            color: '#FDF8F1',
+            padding: '12px 26px',
+            borderRadius: '9999px',
+            fontSize: '14px',
+            fontWeight: 500,
+            textDecoration: 'none' }}
         >
-          {label.btn}
-        </Link>
+          {tx.btn}
+        </a>
       </div>
     </div>
   )

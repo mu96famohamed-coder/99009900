@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { LANGS, type Lang, t, services, getPageContent, getPageBlocks, getPageFaq, getServiceFaq, getRequiredDocs, HREFLANG_MAP } from '@/lib/i18n'
 import ServicePage from '@/components/ServicePage'
-import { LegalServiceSchema } from '@/components/SchemaMarkup'
 
 interface Props {
   params: Promise<{ lang: Lang; slug: string }>
@@ -24,14 +23,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!type) return {}
   const seo = (getPageContent(`/power-of-attorney/${slug}`) as any)?.seo
   return {
-    title:       seo?.meta_title?.[lang]       ?? seo?.meta_title?.en       ?? `${t(type.title, lang)} Dubai | E-Notary Dubai`,
+    title:       seo?.meta_title?.[lang]       ?? seo?.meta_title?.en       ?? `${t(type.title, lang)} Dubai | POA in 30`,
     description: seo?.meta_description?.[lang] ?? seo?.meta_description?.en ?? t(type.desc, lang),
     alternates: {
-      canonical: `https://www.enotarydubai.ae/${lang}/power-of-attorney/${slug}/`,
-      'x-default': `https://www.enotarydubai.ae/en/power-of-attorney/${slug}/`,
-        languages: Object.fromEntries(LANGS.map((l) => [HREFLANG_MAP[l], `https://www.enotarydubai.ae/${l}/power-of-attorney/${slug}/`])),
-    },
-  }
+      canonical: `https://www.poain30.ae/${lang}/power-of-attorney/${slug}/`,
+      languages: {
+        ...Object.fromEntries(LANGS.map((l) => [HREFLANG_MAP[l], `https://www.poain30.ae/${l}/power-of-attorney/${slug}/`])),
+        'x-default': `https://www.poain30.ae/en/power-of-attorney/${slug}/`,
+      } } }
 }
 
 const FAQ_KEY: Record<string, string> = {
@@ -45,21 +44,15 @@ const FAQ_KEY: Record<string, string> = {
   inheritance:        'poa_inheritance',
   mohre:              'poa_mohre',
   'company-formation':'poa_company_formation',
-  'property-gifting': 'poa_property_gifting',
-}
+  'property-gifting': 'poa_property_gifting' }
 
 const DOCS_KEY: Record<string, string> = {
   general:       'poa_general',
-  'real-estate': 'poa_real_estate',
-}
+  'real-estate': 'poa_real_estate' }
 
 const SUBTITLE = {
   en: 'Power of Attorney · Dubai',
-  ar: 'وكالة رسمية · دبي',
-  ru: 'Доверенность · Дубай',
-  zh: '授权委托书 · 迪拜',
-  es: 'Poder Notarial · Dubái',
-}
+  ar: 'وكالة رسمية · دبي' }
 
 export default async function POATypePage({ params }: Props) {
   const { lang, slug } = await params
@@ -83,7 +76,6 @@ export default async function POATypePage({ params }: Props) {
 
   return (
     <>
-      <LegalServiceSchema lang={lang} path={`/power-of-attorney/${slug}`} />
       <ServicePage
         lang={lang}
         title={pageTitle}
@@ -91,6 +83,18 @@ export default async function POATypePage({ params }: Props) {
         description={seo?.meta_description ?? type.desc}
         authority={type.authority}
         waMessage={waMessage}
+        breadcrumb={[
+          { label: t({ en: 'Power of Attorney', ar: 'الوكالات الرسمية' }, lang), href: '/power-of-attorney' },
+          { label: t(type.title, lang), href: `/power-of-attorney/${slug}` },
+        ]}
+        relatedServices={
+          (services.poa as any).types
+            .filter((tp: any) => tp.slug !== slug)
+            .slice(0, 4)
+            .map((tp: any) => ({
+              label: tp.title,
+              href: `/power-of-attorney/${tp.slug}` }))
+        }
         requiredDocs={getRequiredDocs(DOCS_KEY[slug] ?? '')}
         faqItems={faqItems.length > 0 ? faqItems : undefined}
         richBlocks={getPageBlocks(pageSlug)}

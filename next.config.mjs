@@ -1,17 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 // ─────────────────────────────────────────────────────────────────────────────
-// E-Notary Dubai — Hardened Next.js Config
-// Zero-Trust Security Protocol
+// POA in 30 — Hardened Next.js Config
+// Zero-Trust Security Protocol (inherited from E-Notary Dubai, then audited)
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Content Security Policy
-// Strategy: Static-generation-compatible CSP via HTTP header.
-// - Strict restrictions on object, base, frame-ancestors, form-action, connect.
-// - script-src allows self + GTM + 'unsafe-inline' required for inline JSON-LD
-//   (SEO structured data) and the GA bootstrap snippet. React auto-escapes all
-//   user/content output, neutralizing the main XSS vector.
-// - No 'unsafe-eval' anywhere.
 const ContentSecurityPolicy = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
@@ -30,42 +23,27 @@ const ContentSecurityPolicy = [
 ].join('; ')
 
 const securityHeaders = [
-  // Hide framework fingerprint (also see poweredByHeader: false below)
   { key: 'X-DNS-Prefetch-Control', value: 'on' },
-  // HSTS: force HTTPS for 2 years, include subdomains, eligible for preload list
   {
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
   },
-  // Clickjacking protection (legacy header; CSP frame-ancestors is modern equivalent)
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-  // MIME-sniffing protection
   { key: 'X-Content-Type-Options', value: 'nosniff' },
-  // Referrer leakage control
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  // Legacy XSS filter (deprecated in modern browsers but harmless)
   { key: 'X-XSS-Protection', value: '1; mode=block' },
-  // Disable powerful browser features we don't use
   {
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()',
   },
-  // Isolation headers
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
-  // Content Security Policy
   { key: 'Content-Security-Policy', value: ContentSecurityPolicy },
 ]
 
 const nextConfig = {
-  // Hide 'X-Powered-By: Next.js' technical fingerprint
   poweredByHeader: false,
-
-  // Disable production source maps so competitors cannot read component
-  // structure via browser DevTools
   productionBrowserSourceMaps: false,
-
-  // Strict React mode
   reactStrictMode: true,
 
   typescript: {
@@ -75,8 +53,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // Remove all console.* calls in production builds (prevents info leakage
-  // via DevTools console). Keep console.error for critical failures.
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
   },
@@ -88,44 +64,103 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // Root → default language
       {
         source: '/',
         destination: '/en/',
         permanent: false,
       },
+      // Redirect any leftover non-EN/AR legacy prefixes to English equivalent
       {
-        source: '/:lang(en|ar|ru|zh|es)/power-of-attorney/marriage',
+        source: '/ru/:path*',
+        destination: '/en/:path*',
+        permanent: true,
+      },
+      {
+        source: '/zh/:path*',
+        destination: '/en/:path*',
+        permanent: true,
+      },
+      {
+        source: '/es/:path*',
+        destination: '/en/:path*',
+        permanent: true,
+      },
+      // Pricing page removed — redirect to homepage
+      {
+        source: '/:lang(en|ar)/pricing',
+        destination: '/:lang/',
+        permanent: true,
+      },
+      {
+        source: '/pricing',
+        destination: '/en/',
+        permanent: true,
+      },
+      // Services that don't exist on POA in 30 → parent POA page
+      {
+        source: '/:lang(en|ar)/power-of-attorney/marriage',
         destination: '/:lang/power-of-attorney/',
         permanent: true,
       },
       {
-        source: '/:lang(en|ar|ru|zh|es)/power-of-attorney/marriage/',
+        source: '/:lang(en|ar)/power-of-attorney/marriage/',
         destination: '/:lang/power-of-attorney/',
         permanent: true,
       },
       {
-        source: '/:lang(en|ar|ru|zh|es)/power-of-attorney/divorce',
+        source: '/:lang(en|ar)/power-of-attorney/divorce',
         destination: '/:lang/power-of-attorney/',
         permanent: true,
       },
       {
-        source: '/:lang(en|ar|ru|zh|es)/power-of-attorney/divorce/',
+        source: '/:lang(en|ar)/power-of-attorney/divorce/',
         destination: '/:lang/power-of-attorney/',
         permanent: true,
       },
-      // 301 permanent: /eviction-notice → /legal-notice/eviction
-      // Preserves the visitor's language when a lang prefix is present.
+      // Apostille service removed → redirect to MOFA attestation hub
       {
-        source: '/:lang(en|ar|ru|zh|es)/eviction-notice',
+        source: '/:lang(en|ar)/attestation/apostille',
+        destination: '/:lang/',
+        permanent: true,
+      },
+      {
+        source: '/:lang(en|ar)/attestation/apostille/',
+        destination: '/:lang/',
+        permanent: true,
+      },
+      // Blog removed entirely → redirect any /blog/* path to MOFA attestation page
+      {
+        source: '/:lang(en|ar)/blog/:slug*',
+        destination: '/:lang/',
+        permanent: true,
+      },
+      {
+        source: '/:lang(en|ar)/blog',
+        destination: '/:lang/',
+        permanent: true,
+      },
+
+      // Removed services → redirect to homepage
+      { source: '/:lang(en|ar)/attestation/:slug*', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/corporate/:slug*', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/legal-translation/:slug*', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/legal-translation', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/certified-true-copy', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/certified-true-copy/', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/affidavit', destination: '/:lang/', permanent: true },
+      { source: '/:lang(en|ar)/affidavit/', destination: '/:lang/', permanent: true },
+      // /eviction-notice legacy → /legal-notice/eviction
+      {
+        source: '/:lang(en|ar)/eviction-notice',
         destination: '/:lang/legal-notice/eviction/',
         permanent: true,
       },
       {
-        source: '/:lang(en|ar|ru|zh|es)/eviction-notice/',
+        source: '/:lang(en|ar)/eviction-notice/',
         destination: '/:lang/legal-notice/eviction/',
         permanent: true,
       },
-      // Bare (un-prefixed) variants — fall back to the default language.
       {
         source: '/eviction-notice',
         destination: '/en/legal-notice/eviction/',
@@ -151,13 +186,19 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      // Hot-link protection: image responses get a strict Cross-Origin-Resource-Policy
+      // so other sites can't <img src="..."> directly to our hosted images.
+      // Combined with same-origin CORP, third parties get a blocked image.
+      {
+        source: '/:path*\\.(png|jpg|jpeg|gif|webp|avif|svg)',
+        headers: [
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
+          { key: 'Cache-Control', value: 'public, max-age=2592000' },
+        ],
+      },
     ]
   },
 
-  // Defense-in-depth: block any HTTP request that tries to reach the raw
-  // content.json or the entire /data/ folder via URL. Next.js already hides
-  // these files (they are never copied to /public and only imported at build
-  // time), but this is an explicit firewall in case of future mistakes.
   async rewrites() {
     return {
       beforeFiles: [

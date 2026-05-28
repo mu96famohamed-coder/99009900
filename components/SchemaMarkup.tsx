@@ -1,4 +1,24 @@
-import { type Lang, getPageContent } from '@/lib/i18n'
+// ─────────────────────────────────────────────────────────────────────────────
+// SchemaMarkup — backwards-compatible facade.
+//
+// All schema generation logic now lives in lib/seo/schema-builder.ts.
+// This file exists to keep existing imports working without route changes.
+//
+// Key change from previous version: every schema type is now backed by
+// ProfessionalService (not LegalService). POA in 30 is a legal-document
+// drafting + notarization-facilitation agency — NOT a law firm. Using
+// LegalService risked Google misclassification and potential conflict with
+// UAE Bar / Ministry of Justice rules.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { type Lang } from '@/lib/i18n'
+import {
+  buildProfessionalServiceSchema,
+  buildServiceSchema,
+  buildFAQSchema,
+  buildBreadcrumbSchema,
+  buildArticleSchema,
+} from '@/lib/seo/schema-builder'
 
 interface BreadcrumbItem {
   name: string
@@ -10,17 +30,8 @@ interface FAQItem {
   a: Record<string, string>
 }
 
-export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: item.name,
-      item: item.url,
-    })),
-  }
+function emit(schema: unknown) {
+  if (!schema) return null
   return (
     <script
       type="application/ld+json"
@@ -28,287 +39,127 @@ export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
     />
   )
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BreadcrumbSchema — accepts either explicit items OR a path (preferred).
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function BreadcrumbSchema({
+  items,
+  lang,
+  path,
+}: {
+  items?: BreadcrumbItem[]
+  lang?: Lang
+  path?: string
+}) {
+  if (lang && path) {
+    return emit(buildBreadcrumbSchema(lang, path))
+  }
+  if (items && items.length > 0) {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    }
+    return emit(schema)
+  }
+  return null
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FAQSchema — emits FAQPage schema in the active language.
+// ─────────────────────────────────────────────────────────────────────────────
 
 export function FAQSchema({ items, lang }: { items: FAQItem[]; lang: Lang }) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: items.map((item) => ({
-      '@type': 'Question',
-      name: item.q[lang] || item.q.en,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.a[lang] || item.a.en,
-      },
-    })),
-  }
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return emit(buildFAQSchema(items, lang))
 }
 
-export function ServiceSchema({
-  name, url, description,
-}: {
-  name: string; url: string; description: string
-}) {
+// ─────────────────────────────────────────────────────────────────────────────
+// ServiceSchema — emits Service schema for a given path.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function ServiceSchema(
+  props:
+    | { lang: Lang; path: string }
+    | { name: string; url: string; description: string },
+) {
+  if ('path' in props) {
+    return emit(buildServiceSchema(props.lang, props.path))
+  }
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'LegalService',
-    name,
-    url,
-    description,
+    '@type': 'Service',
+    name: props.name,
+    url: props.url,
+    description: props.description,
     provider: {
-      '@type': 'Organization',
-      name: 'E-Notary Dubai',
-      url: 'https://enotarydubai.ae',
-      telephone: '+971528997280',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Dubai',
-        addressCountry: 'AE',
-      },
+      '@type': 'ProfessionalService',
+      name: 'POA in 30',
+      url: 'https://www.poain30.ae',
     },
     areaServed: { '@type': 'City', name: 'Dubai' },
   }
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return emit(schema)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LegalServiceSchema — dynamic per-route JSON-LD, statically rendered.
-//
-// Pure server component, prop-driven (no headers(), no dynamic APIs). The
-// page knows its own canonical path at build time, so each statically
-// generated page emits its own LegalService schema with zero runtime cost.
-// SSG is fully preserved.
-//
-// Usage from a route segment page:
-//
-//     <LegalServiceSchema lang={lang} path="/power-of-attorney/real-estate" />
-//
-// `path` must be the canonical SITE path (no language prefix, no trailing
-// slash, '/' for the home page). It is used both to look up localized
-// metadata in content.json and to build the canonical URL.
+// ArticleSchema — for explainer / blog-style pages.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const BRAND_NAME = 'E-Notary Dubai'
-const BRAND_URL = 'https://www.enotarydubai.ae'
-
-/** Pull the cleanest available service name for a path, with full lang
- *  fallback. Prefers H1 (user-facing heading) over title (SEO meta). */
-function serviceNameFor(path: string, lang: Lang): string | null {
-  const pc = getPageContent(path) as Record<string, unknown> | null
-  if (!pc) return null
-  const h1 =
-    (pc[`h1_${lang}`] as string | undefined) ||
-    (pc.h1_en as string | undefined)
-  if (h1) return h1
-  const title =
-    (pc[`title_${lang}`] as string | undefined) ||
-    (pc.title_en as string | undefined)
-  return title || null
-}
-
-/** Pull the cleanest available description for a path, with lang fallback. */
-function serviceDescriptionFor(path: string, lang: Lang): string | null {
-  const pc = getPageContent(path) as Record<string, unknown> | null
-  if (!pc) return null
-  const desc =
-    (pc[`meta_${lang}`] as string | undefined) ||
-    (pc.meta_en as string | undefined)
-  return desc || null
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ArticleSchema — schema.org/Article JSON-LD for blog posts.
-//
-// Pure server component. Author is the brand organization; publisher is
-// linked via @id to the LocalBusiness node, keeping the knowledge graph
-// coherent across the site.
-// ─────────────────────────────────────────────────────────────────────────────
-export function ArticleSchema({
-  headline,
-  url,
-  lang,
-  datePublished,
-  dateModified,
-  description,
-}: {
-  headline: string
-  url: string
-  lang: Lang
+export function ArticleSchema(props: {
+  lang?: Lang
+  path?: string
+  headline?: string
+  url?: string
   datePublished?: string
   dateModified?: string
   description?: string
 }) {
-  const schema: Record<string, unknown> = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    '@id': `${url}#article`,
-    headline,
-    mainEntityOfPage: url,
-    url,
-    inLanguage: lang,
-    author: {
-      '@type': 'Organization',
-      name: BRAND_NAME,
-      url: BRAND_URL,
-    },
-    publisher: {
-      '@type': 'Organization',
-      '@id': `${BRAND_URL}/#business`,
-      name: BRAND_NAME,
-      url: BRAND_URL,
-    },
+  if (props.lang && props.path) {
+    const schema = buildArticleSchema(props.lang, props.path) as Record<
+      string,
+      unknown
+    >
+    if (props.datePublished) schema.datePublished = props.datePublished
+    if (props.dateModified) schema.dateModified = props.dateModified
+    return emit(schema)
   }
-  if (description) schema.description = description
-  if (datePublished) schema.datePublished = datePublished
-  if (dateModified) schema.dateModified = dateModified
-  else if (datePublished) schema.dateModified = datePublished
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
-}
-
-export function LegalServiceSchema({
-  lang,
-  path,
-}: {
-  lang: Lang
-  /** Canonical SITE path, no language prefix, no trailing slash.
-   *  Use '/' for the home page. */
-  path: string
-}) {
-  const cleanPath = path === '/' ? '' : path
-  const url = `${BRAND_URL}/${lang}${cleanPath}/`
-
-  const name =
-    serviceNameFor(path, lang) || `${BRAND_NAME} — Notary Support Services`
-  const description =
-    serviceDescriptionFor(path, lang) ||
-    'Private notary support in Dubai — POA drafting, MOFA attestation, legal notices, eviction notices, and legal translation. Same-day service.'
-
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'LegalService',
-    '@id': `${url}#service`,
-    name,
-    description,
-    url,
-    inLanguage: lang,
-    provider: {
-      '@type': 'Organization',
-      '@id': `${BRAND_URL}/#business`,
-      name: BRAND_NAME,
-      url: BRAND_URL,
-      telephone: '+971528997280',
-      email: 'info@enotarydubai.ae',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Business Bay',
-        addressLocality: 'Dubai',
-        addressRegion: 'Dubai',
-        addressCountry: 'AE',
+  if (props.headline && props.url) {
+    const schema: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: props.headline,
+      url: props.url,
+      mainEntityOfPage: props.url,
+      author: {
+        '@type': 'Organization',
+        name: 'POA in 30',
+        url: 'https://www.poain30.ae',
       },
-    },
-    areaServed: {
-      '@type': 'City',
-      name: 'Dubai',
-      sameAs: 'https://www.wikidata.org/wiki/Q612',
-    },
+      publisher: { '@id': 'https://www.poain30.ae/#business' },
+    }
+    if (props.description) schema.description = props.description
+    if (props.datePublished) schema.datePublished = props.datePublished
+    if (props.dateModified) schema.dateModified = props.dateModified
+    return emit(schema)
   }
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+  return null
 }
 
-export function LocalBusinessSchema() {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'LegalService',
-    '@id': 'https://www.enotarydubai.ae/#business',
-    name: 'E-Notary Dubai',
-    alternateName: 'E-Notary Dubai',
-    description: 'Private notary support service in Dubai — POA drafting, MOFA attestation, eviction notices, legal translation. Same-day service.',
-    url: 'https://enotarydubai.ae',
-    // image: 'https://www.enotarydubai.ae/logo.png',
-    // TODO: uncomment when logo.png is added to public/
-    telephone: '+971528997280',
-    email: 'info@enotarydubai.ae',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Business Bay',
-      addressLocality: 'Dubai',
-      addressRegion: 'Dubai',
-      addressCountry: 'AE',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 25.1850,
-      longitude: 55.2590,
-    },
-    knowsAbout: [
-      'Power of Attorney Drafting',
-      'MOFA Attestation',
-      'Eviction Notices',
-      'Legal Translation',
-      'Apostille Services',
-      'Rental Dispute Center (RDC) Filings',
-      'Dubai Land Department (DLD) Procedures',
-      'Last Will and Testament for Expats',
-      'Corporate Documentation (MOA, Board Resolutions)',
-      'Affidavits and Statutory Declarations',
-    ],
-    openingHoursSpecification: [
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday','Monday','Tuesday','Wednesday','Thursday'], opens: '09:00', closes: '18:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '10:00', closes: '15:00' },
-    ],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+971528997280',
-      contactType: 'customer service',
-      availableLanguage: ['English', 'Arabic', 'Russian', 'Chinese', 'Spanish'],
-    },
-    areaServed: {
-      '@type': 'City',
-      name: 'Dubai',
-      sameAs: 'https://www.wikidata.org/wiki/Q612',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Notary Support Services',
-      itemListElement: [
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Power of Attorney Dubai' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'MOFA Attestation Dubai' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Eviction Notice Dubai' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Legal Translation Dubai' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'E-Notary Dubai' } },
-      ],
-    },
-    sameAs: [
-      'https://wa.me/971528997280',
-    ],
-  }
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
+// ─────────────────────────────────────────────────────────────────────────────
+// LocalBusinessSchema — emits the global ProfessionalService schema.
+// Kept under this name for backwards-compat with imports in [lang]/layout.tsx.
+// (POA in 30 is a ProfessionalService, not a LegalService — see schema-builder.)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function LocalBusinessSchema({
+  lang = 'en' as Lang,
+}: { lang?: Lang } = {}) {
+  return emit(buildProfessionalServiceSchema(lang))
 }

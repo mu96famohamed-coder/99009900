@@ -21,7 +21,7 @@ export type RichBlock =
 
 // ── Check icon ───────────────────────────────────────────────────────────────
 const CheckIcon = () => (
-  <svg className="w-3.5 h-3.5 text-gold-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--brand-gold)' }}>
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
   </svg>
 )
@@ -54,8 +54,13 @@ const LawIcon = () => (
 
 function HeadingBlock({ block, lang }: { block: Extract<RichBlock, {type:'heading'}>, lang: Lang }) {
   return (
-    <h2 className="font-serif text-2xl font-bold text-navy-900 mt-10 mb-4 pb-3 block"
-      style={{borderBottom:'2px solid',borderImage:'linear-gradient(90deg,#d4b43a 0%,rgba(212,180,58,.15) 60%,transparent 100%) 1'}}>
+    <h2 className="text-2xl font-semibold mt-10 mb-4 pb-3 block"
+      style={{
+        fontFamily: 'DM Sans, system-ui, sans-serif',
+        color: 'var(--text-primary)',
+        borderBottom: '2px solid',
+        borderImage: 'linear-gradient(90deg,#C9A84C 0%,rgba(201,168,76,.15) 60%,transparent 100%) 1',
+      }}>
       {t(block.text, lang)}
     </h2>
   )
@@ -63,7 +68,7 @@ function HeadingBlock({ block, lang }: { block: Extract<RichBlock, {type:'headin
 
 function ParaBlock({ block, lang }: { block: Extract<RichBlock, {type:'para'}>, lang: Lang }) {
   return (
-    <p className={`text-sm leading-relaxed mb-1 ${block.accent ? 'text-navy-800 font-medium' : 'text-navy-600'}`}>
+    <p className={`text-sm leading-relaxed mb-1 ${block.accent ? 'text-ink-800 font-medium' : 'text-ink-600'}`}>
       {t(block.text, lang)}
     </p>
   )
@@ -73,13 +78,13 @@ function WarningBlock({ block, lang }: { block: Extract<RichBlock, {type:'warnin
   const isRTL = lang === 'ar'
   return (
     <div className={`flex gap-0 rounded-xl overflow-hidden my-5 ${isRTL ? 'flex-row-reverse' : ''}`}
-      style={{background:'#fffbf0',border:'1px solid rgba(201,162,39,.25)'}}>
-      <div style={{width:3,flexShrink:0,background:'#d4b43a'}} />
+      style={{background:'#FEF2F2', border:'1px solid #FECACA'}}>
+      <div style={{width:3, flexShrink:0, background:'#DC2626'}} />
       <div className={`flex gap-3 px-4 py-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
-        <span className="shrink-0 mt-0.5" style={{color:'#c9a227'}}><AlertIcon /></span>
+        <span className="shrink-0 mt-0.5" style={{color:'#DC2626'}}><AlertIcon /></span>
         <div className="min-w-0">
-          {block.title && <p className="text-xs font-bold uppercase tracking-wide mb-1.5" style={{color:'#8a6a00'}}>{t(block.title, lang)}</p>}
-          <p className="text-sm leading-relaxed" style={{color:'#5a4800', fontWeight:300}}>{t(block.text, lang)}</p>
+          {block.title && <p className="text-xs font-bold uppercase tracking-wide mb-1.5" style={{color:'#991B1B', fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.title, lang)}</p>}
+          <p className="text-sm leading-relaxed" style={{color:'#7F1D1D', fontWeight:400, fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.text, lang)}</p>
         </div>
       </div>
     </div>
@@ -89,11 +94,18 @@ function WarningBlock({ block, lang }: { block: Extract<RichBlock, {type:'warnin
 function InfoBlock({ block, lang }: { block: Extract<RichBlock, {type:'info'}>, lang: Lang }) {
   const isRTL = lang === 'ar'
   return (
-    <div className={`flex gap-3 bg-navy-50 border border-navy-200 rounded-xl px-4 py-4 my-4 ${isRTL ? 'border-r-4 border-r-navy-400 flex-row-reverse text-right' : 'border-l-4 border-l-navy-400'}`}>
-      <span className="text-navy-400 mt-0.5"><InfoIcon /></span>
+    <div
+      className={`flex gap-3 rounded-xl px-4 py-4 my-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+      style={{
+        background: 'var(--bg-base)',
+        border: '1px solid var(--border-default)',
+        borderInlineStart: '3px solid var(--brand-gold)',
+      }}
+    >
+      <span className="mt-0.5 shrink-0" style={{color:'var(--brand-gold)'}}><InfoIcon /></span>
       <div className="min-w-0">
-        {block.title && <p className="text-navy-700 text-xs font-bold uppercase tracking-wide mb-1">{t(block.title, lang)}</p>}
-        <p className="text-navy-600 text-sm leading-relaxed">{t(block.text, lang)}</p>
+        {block.title && <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{color:'var(--brand-gold)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.title, lang)}</p>}
+        <p className="text-sm leading-relaxed" style={{color:'var(--text-secondary)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.text, lang)}</p>
       </div>
     </div>
   )
@@ -115,16 +127,19 @@ function SuccessBlock({ block, lang }: { block: Extract<RichBlock, {type:'succes
 function LawBlock({ block, lang }: { block: Extract<RichBlock, {type:'law'}>, lang: Lang }) {
   const isRTL = lang === 'ar'
   return (
-    <div className={`rounded-xl overflow-hidden my-5 ${isRTL ? '' : ''}`}
-      style={{background:'#0a1628',border:'1px solid rgba(212,180,58,.15)'}}>
+    <div className={`rounded-xl overflow-hidden my-5`}
+      style={{background:'var(--bg-base)', border:'1px solid var(--border-default)'}}>
       <div className="px-5 py-2.5 flex items-center gap-2"
-        style={{background:'rgba(212,180,58,.12)',borderBottom:'1px solid rgba(212,180,58,.2)'}}>
-        <span style={{color:'#d4b43a',flexShrink:0}}><LawIcon /></span>
-        <span className="text-[10px] font-bold uppercase tracking-[.12em]" style={{color:'#d4b43a'}}>{block.ref}</span>
+        style={{background:'rgba(201,168,76,0.08)', borderBottom:'1px solid var(--border-default)'}}>
+        <span style={{color:'var(--brand-gold)', flexShrink:0}}><LawIcon /></span>
+        <span className="text-[10px] font-bold uppercase tracking-[.12em]" style={{color:'var(--brand-gold)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{block.ref}</span>
       </div>
       <div className={`px-5 py-4 ${isRTL ? 'text-right' : ''}`}
-        style={{borderLeft: isRTL ? 'none' : '3px solid #d4b43a', borderRight: isRTL ? '3px solid #d4b43a' : 'none'}}>
-        <p className="text-sm leading-[1.8]" style={{color:'#b8cde0',fontStyle:'italic',fontWeight:300}}>{t(block.text, lang)}</p>
+        style={{
+          borderInlineStart: isRTL ? 'none' : '3px solid var(--brand-gold)',
+          borderInlineEnd: isRTL ? '3px solid var(--brand-gold)' : 'none',
+        }}>
+        <p className="text-sm leading-[1.8]" style={{color:'var(--text-secondary)', fontStyle:'italic', fontWeight:400, fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.text, lang)}</p>
       </div>
     </div>
   )
@@ -138,15 +153,14 @@ function StepsBlock({ block, lang }: { block: Extract<RichBlock, {type:'steps'}>
         <div key={i} className={`flex gap-4 relative ${isRTL ? 'flex-row-reverse' : ''}`}>
           {/* connector line */}
           {i < block.items.length - 1 && (
-            <div className={`absolute top-8 ${isRTL ? 'right-[19px]' : 'left-[19px]'} w-px h-[calc(100%-1.5rem)] bg-gold-400/30`} />
+            <div className={`absolute top-8 ${isRTL ? 'right-[19px]' : 'left-[19px]'} w-px h-[calc(100%-1.5rem)]`} style={{background:'rgba(201,168,76,0.25)'}} />
           )}
-          {/* number circle */}
-          <div className="shrink-0 w-10 h-10 rounded-full bg-navy-900 border-2 border-gold-400 flex items-center justify-center z-10">
-            <span className="font-serif font-bold text-gold-400 text-sm">{i + 1}</span>
+          <div className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center z-10" style={{background:'var(--brand-midnight)', border:'2px solid var(--brand-gold)'}}>
+            <span className="font-bold text-sm" style={{color:'var(--brand-gold)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{i + 1}</span>
           </div>
           <div className={`pb-6 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-            <p className="font-semibold text-navy-900 text-sm mb-1">{t(item.title, lang)}</p>
-            <p className="text-navy-600 text-sm leading-relaxed">{t(item.body, lang)}</p>
+            <p className="font-semibold text-ink-900 text-sm mb-1">{t(item.title, lang)}</p>
+            <p className="text-ink-600 text-sm leading-relaxed">{t(item.body, lang)}</p>
           </div>
         </div>
       ))}
@@ -160,12 +174,12 @@ function ChecklistBlock({ block, lang }: { block: Extract<RichBlock, {type:'chec
     <div className="my-5 rounded-xl overflow-hidden" style={{border:'1px solid #e8ecf5'}}>
       {block.title && (
         <div className={`px-5 py-3 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
-          style={{background:'#0a1628',borderBottom:'1px solid rgba(212,180,58,.15)'}}>
-          <div style={{width:3,height:14,background:'#d4b43a',borderRadius:2,flexShrink:0}} />
-          <p className="text-gold-400 text-[10px] font-bold uppercase tracking-[.12em]">{t(block.title, lang)}</p>
+          style={{background:'var(--brand-midnight)', borderBottom:'1px solid rgba(201,168,76,0.15)'}}>
+          <div style={{width:3, height:14, background:'var(--brand-gold)', borderRadius:2, flexShrink:0}} />
+          <p className="text-[10px] font-bold uppercase tracking-[.12em]" style={{color:'var(--brand-gold)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.title, lang)}</p>
         </div>
       )}
-      <ul dir={isRTL ? 'rtl' : 'ltr'} style={{background:'#fafbff'}}>
+      <ul dir={isRTL ? 'rtl' : 'ltr'} style={{background:'var(--bg-base)'}}>
         {block.items.map((item, i) => (
           <li key={i} className={`flex items-start gap-3 px-5 py-3 ${isRTL ? 'flex-row-reverse' : ''}`}
             style={{borderBottom: i < block.items.length - 1 ? '1px solid #f0f2f8' : 'none'}}>
@@ -187,33 +201,33 @@ function CompareBlock({ block, lang }: { block: Extract<RichBlock, {type:'compar
   return (
     <div className="my-6 grid sm:grid-cols-2 gap-4">
       {/* Left column */}
-      <div className="rounded-2xl border border-navy-200 overflow-hidden">
-        <div className="bg-navy-900 px-5 py-3">
-          <p className="text-gold-400 text-xs font-bold uppercase tracking-wider">{t(block.left.title, lang)}</p>
+      <div className="rounded-2xl border border-ink-200 overflow-hidden">
+        <div className="bg-ink-900 px-5 py-3">
+          <p className="text-coral-400 text-xs font-bold uppercase tracking-wider">{t(block.left.title, lang)}</p>
         </div>
-        <ul className="divide-y divide-navy-100">
+        <ul className="divide-y divide-ink-100">
           {block.left.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3 px-5 py-3">
               <CheckIcon />
-              <span className="text-sm text-navy-700 leading-relaxed">{t(item, lang)}</span>
+              <span className="text-sm text-ink-700 leading-relaxed">{t(item, lang)}</span>
             </li>
           ))}
         </ul>
       </div>
       {/* Right column */}
-      <div className="rounded-2xl border border-gold-400/40 overflow-hidden">
-        <div className="bg-gold-400 px-5 py-3">
-          <p className="text-navy-900 text-xs font-bold uppercase tracking-wider">{t(block.right.title, lang)}</p>
+      <div className="rounded-2xl overflow-hidden" style={{border:'1px solid var(--border-default)'}}>
+        <div className="px-5 py-3" style={{background:'var(--bg-subtle)'}}>
+          <p className="text-xs font-bold uppercase tracking-wider" style={{color:'var(--text-secondary)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.right.title, lang)}</p>
         </div>
-        <ul className="divide-y divide-gold-400/20 bg-gold-400/5">
+        <ul className="divide-y" style={{divideColor:'var(--border-default)', background:'white'}}>
           {block.right.items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 px-5 py-3">
-              <span className="text-gold-600 mt-0.5 shrink-0">
+            <li key={i} className="flex items-start gap-3 px-5 py-3" style={{borderBottom: i < block.right.items.length - 1 ? '1px solid var(--border-default)' : 'none'}}>
+              <span className="mt-0.5 shrink-0" style={{color:'var(--brand-gold)'}}>
                 <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
               </span>
-              <span className="text-sm text-navy-700 leading-relaxed">{t(item, lang)}</span>
+              <span className="text-sm leading-relaxed" style={{color:'var(--text-secondary)'}}>{t(item, lang)}</span>
             </li>
           ))}
         </ul>
@@ -224,22 +238,22 @@ function CompareBlock({ block, lang }: { block: Extract<RichBlock, {type:'compar
 
 function TableBlock({ block, lang }: { block: Extract<RichBlock, {type:'table'}>, lang: Lang }) {
   return (
-    <div className="my-6 overflow-x-auto rounded-2xl border border-navy-200">
+    <div className="my-6 overflow-x-auto rounded-2xl border border-ink-200">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-navy-900">
+          <tr style={{background:'var(--brand-midnight)'}}>
             {block.headers.map((h, i) => (
-              <th key={i} className="text-left px-4 py-3 text-gold-400 text-xs font-bold uppercase tracking-wider">
+              <th key={i} className="text-left px-4 py-3 text-xs font-bold uppercase tracking-wider" style={{color:'var(--brand-gold)', fontFamily:'DM Sans, system-ui, sans-serif'}}>
                 {t(h, lang)}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-navy-100">
+        <tbody className="divide-y divide-ink-100">
           {block.rows.map((row, i) => (
-            <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-navy-50'}>
+            <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-ink-50'}>
               {row.map((cell, j) => (
-                <td key={j} className="px-4 py-3 text-navy-700 leading-relaxed">
+                <td key={j} className="px-4 py-3 text-ink-700 leading-relaxed">
                   {t(cell, lang)}
                 </td>
               ))}
@@ -256,10 +270,10 @@ function ProcessBlock({ block, lang }: { block: Extract<RichBlock, {type:'proces
   return (
     <div className="my-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {block.items.map((item, i) => (
-        <div key={i} className={`bg-navy-50 rounded-xl border border-navy-100 p-5 ${isRTL ? 'text-right' : ''}`}>
+        <div key={i} className={`bg-ink-50 rounded-xl border border-ink-100 p-5 ${isRTL ? 'text-right' : ''}`}>
           <div className="text-2xl mb-3">{item.icon}</div>
-          <p className="font-semibold text-navy-900 text-sm mb-2">{t(item.title, lang)}</p>
-          <p className="text-navy-600 text-xs leading-relaxed">{t(item.body, lang)}</p>
+          <p className="font-semibold text-ink-900 text-sm mb-2">{t(item.title, lang)}</p>
+          <p className="text-ink-600 text-xs leading-relaxed">{t(item.body, lang)}</p>
         </div>
       ))}
     </div>
@@ -272,9 +286,9 @@ function StatsBlock({ block, lang }: { block: Extract<RichBlock, {type:'stats'}>
       {block.items.map((item, i) => (
         <div key={i} className="rounded-xl p-5 text-center"
           style={{background:'#f7f9ff',border:'1px solid #e8ecf5'}}>
-          <div className="font-serif font-bold text-gold-400 mb-1" style={{fontSize:38,lineHeight:1}}>{item.value}</div>
-          <div className="text-navy-900 text-xs font-semibold mb-0.5">{t(item.label, lang)}</div>
-          {item.sub && <div className="text-navy-400 text-xs font-light">{t(item.sub, lang)}</div>}
+          <div className="font-bold mb-1" style={{fontSize:38, lineHeight:1, color:'var(--brand-gold)', fontFamily:'Cormorant Garamond, Georgia, serif', fontWeight:300}}>{item.value}</div>
+          <div className="text-ink-900 text-xs font-semibold mb-0.5">{t(item.label, lang)}</div>
+          {item.sub && <div className="text-ink-400 text-xs font-light">{t(item.sub, lang)}</div>}
         </div>
       ))}
     </div>
@@ -282,7 +296,7 @@ function StatsBlock({ block, lang }: { block: Extract<RichBlock, {type:'stats'}>
 }
 
 function DividerBlock() {
-  return <div className="h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent my-8" />
+  return <div className="h-px my-8" style={{background:'linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent)'}} />
 }
 
 // ── Main renderer ────────────────────────────────────────────────────────────

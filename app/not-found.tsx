@@ -2,12 +2,8 @@
 import { usePathname } from 'next/navigation'
 
 const T = {
-  en: { h: 'Page Not Found', p: 'The page you are looking for does not exist.', btn: 'Back to Home' },
-  ar: { h: 'الصفحة غير موجودة', p: 'الصفحة التي تبحث عنها غير موجودة.', btn: 'العودة للرئيسية' },
-  ru: { h: 'Страница не найдена', p: 'Запрашиваемая страница не существует.', btn: 'На главную' },
-  zh: { h: '页面未找到', p: '您查找的页面不存在。', btn: '返回主页' },
-  es: { h: 'Página no encontrada', p: 'La página que busca no existe.', btn: 'Volver al inicio' },
-}
+  en: { h: 'Page not found', p: "The page you're looking for doesn't exist.", btn: 'Back to home' },
+  ar: { h: 'الصفحة غير موجودة', p: 'الصفحة التي تبحث عنها غير موجودة.', btn: 'العودة للرئيسية' } }
 
 export default function NotFound() {
   const pathname = usePathname()
@@ -17,12 +13,47 @@ export default function NotFound() {
   const isRTL = lang === 'ar'
 
   return (
-    <div dir={isRTL ? 'rtl' : 'ltr'} style={{ minHeight:'100vh', background:'#0a1628', color:'white', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', fontFamily:'system-ui, sans-serif' }}>
+    <div
+      dir={isRTL ? 'rtl' : 'ltr'}
+      style={{
+        minHeight: '100vh',
+        background: '#FDF8F1',
+        color: '#14293C',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontFamily: isRTL
+          ? "'IBM Plex Sans Arabic', system-ui, sans-serif"
+          : "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif",
+        padding: '2rem' }}
+    >
       <div>
-        <div style={{ fontSize:'4rem', fontWeight:700, color:'#d4b43a', marginBottom:'1rem' }}>404</div>
-        <h1 style={{ fontSize:'1.5rem', marginBottom:'0.5rem' }}>{tx.h}</h1>
-        <p style={{ color:'#6b93b5', marginBottom:'2rem' }}>{tx.p}</p>
-        <a href={homeHref} style={{ background:'#d4b43a', color:'#0a1628', padding:'0.75rem 2rem', borderRadius:'0.75rem', fontWeight:700, textDecoration:'none' }}>
+        <div
+          style={{
+            fontSize: '6rem',
+            fontWeight: 800,
+            color: '#E85A3C',
+            marginBottom: '1rem',
+            lineHeight: 1,
+            letterSpacing: '-0.04em' }}
+        >
+          404
+        </div>
+        <h1 style={{ fontSize: '1.75rem', marginBottom: '0.75rem', fontWeight: 700 }}>{tx.h}</h1>
+        <p style={{ color: '#5E7D8F', marginBottom: '2rem', fontSize: '1rem' }}>{tx.p}</p>
+        <a
+          href={homeHref}
+          style={{
+            display: 'inline-block',
+            background: '#E85A3C',
+            color: '#ffffff',
+            padding: '0.85rem 2rem',
+            borderRadius: '9999px',
+            fontWeight: 600,
+            fontSize: '0.95rem',
+            textDecoration: 'none' }}
+        >
           {tx.btn}
         </a>
       </div>

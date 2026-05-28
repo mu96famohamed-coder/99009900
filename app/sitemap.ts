@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { LANGS, HREFLANG_MAP } from '@/lib/i18n'
 import content from '@/data/content.json'
 
-const BASE = 'https://www.enotarydubai.ae'
+const BASE = 'https://www.poain30.ae'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Path classification for SEO priority
@@ -18,16 +18,13 @@ const MAIN_HUBS = new Set<string>([
   '/power-of-attorney/real-estate',
   '/power-of-attorney/vehicle',
   '/legal-notice',
-  '/corporate/moa',
 ])
 
 /** Informational / boilerplate pages. Priority 0.5. */
 const INFO_PAGES = new Set<string>([
-  '/pricing',
   '/faq',
   '/about',
   '/contact',
-  '/blog',
   '/what-is-tableegh',
   '/document-rejection',
   '/why-poa-rejected-dubai',
@@ -41,39 +38,7 @@ const REDIRECTED_PATHS = new Set<string>([])
 
 /** Real routes that don't have a page_content entry (e.g. dynamically rendered
  *  index pages). Added to the sitemap alongside page_content keys. */
-const EXTRA_PATHS: string[] = ['/blog']
-
-// Must stay in sync with BLOG_SLUGS in app/[lang]/blog/page.tsx
-const BLOG_SLUGS = [
-  'how-to-get-poa-dubai',
-  'power-of-attorney-types-dubai',
-  'difference-between-general-and-special-poa-uae',
-  'how-to-cancel-poa-dubai',
-  'poa-rejected-by-authority-what-to-do',
-  'poa-for-banking-uae-guide',
-  'corporate-poa-vs-individual-poa-uae',
-  'power-of-attorney-property-sale-dubai',
-  'dld-property-gift-transfer-dubai',
-  'mofa-attestation-guide',
-  'mofa-attestation-step-by-step-dubai',
-  'mofa-attestation-uae-complete-guide-2026',
-  'apostille-vs-attestation',
-  'apostille-vs-embassy-attestation-uae-guide',
-  'what-is-apostille-uae',
-  'eviction-notice-dubai-guide',
-  'eviction-notice-requirements-dubai',
-  'whatsapp-eviction-notice-dubai-valid',
-  'rdc-filing-guide-dubai',
-  'how-to-attend-rdc-hearing-dubai-2026',
-  'legal-translation-dubai-guide',
-  'last-will-testament-dubai-expats',
-  'travelling-minor-child-uae-rules',
-  'same-day-notary-dubai',
-  'notary-public-vs-lawyer-dubai',
-  'notarize-documents-without-visiting-uae',
-  'affidavit-dubai-complete-guide',
-  'corporate-documents-dubai',
-]
+const EXTRA_PATHS: string[] = []
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -87,7 +52,7 @@ function priorityFor(path: string): number {
 }
 
 function changeFreqFor(path: string): 'weekly' | 'monthly' {
-  if (path === '/' || path === '/blog') return 'weekly'
+  if (path === '/') return 'weekly'
   return 'monthly'
 }
 
@@ -115,6 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //    dedupe, drop redirected paths, and sort for deterministic output.
   const allPaths = Array.from(new Set([...contentPaths, ...EXTRA_PATHS]))
     .filter((p) => !REDIRECTED_PATHS.has(p))
+    .filter((p) => !p.includes('_old'))
     .sort()
 
   for (const path of allPaths) {
@@ -129,25 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency,
         priority,
         alternates: {
-          languages: hreflangAlternates(cleanPath),
-        },
-      })
-    }
-  }
-
-  // 3. Blog posts — hreflang alternates across all 5 languages.
-  for (const slug of BLOG_SLUGS) {
-    const cleanPath = `/blog/${slug}`
-    for (const lang of LANGS) {
-      entries.push({
-        url: `${BASE}/${lang}${cleanPath}/`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-        alternates: {
-          languages: hreflangAlternates(cleanPath),
-        },
-      })
+          languages: hreflangAlternates(cleanPath) } })
     }
   }
 

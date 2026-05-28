@@ -1,8 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@600;700;800&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+/* ─────────────────────────────────────────────────────────────────────────────
+   POA in 30 — Global Stylesheet
+   "Editorial Authority" design system
+   Warm off-white base · deep midnight primary · premium gold accent
+   Cormorant Garamond display · DM Sans body
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ─── CSS Custom Properties ──────────────────────────────────────────────── */
+:root {
+  --bg-base:    #F9F7F4;
+  --bg-subtle:  #F2EFE9;
+  --bg-ink:     #0F2137;
+
+  --brand-midnight:   #0F2137;
+  --brand-slate:      #1E3A52;
+  --brand-gold:       #C9A84C;
+  --brand-gold-light: #E8D5A0;
+
+  --text-primary:   #111827;
+  --text-secondary: #374151;
+  --text-muted:     #6B7280;
+  --text-inverse:   #F9F7F4;
+
+  --border-default: #E5E0D8;
+  --border-strong:  #C5BFB5;
+  --success:        #059669;
+
+  --radius-btn:  6px;
+  --radius-card: 12px;
+
+  --transition-base: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[lang="ar"], [dir="rtl"] {
+  --ar-scale:       1.08;
+  --ar-line-height: 1.85;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Base layer
+   ───────────────────────────────────────────────────────────────────────────── */
 
 @layer base {
   html {
@@ -10,446 +52,640 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
   body {
-    @apply text-navy-900 bg-white overflow-x-hidden;
+    @apply overflow-x-hidden;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'DM Sans', system-ui, sans-serif;
     font-feature-settings: 'kern' 1, 'liga' 1;
   }
-  [dir="rtl"] .flip { transform: scaleX(-1); }
-  [dir="rtl"] .ml-auto { margin-inline-start: auto; }
-  [dir="rtl"] .mr-auto { margin-inline-end: auto; }
 
+  [dir="rtl"] body {
+    @apply font-arab;
+  }
+
+  /* Headings — Cormorant Garamond in LTR, Amiri in RTL */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    @apply tracking-tight;
+    color: var(--text-primary);
+  }
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    @apply font-arab;
+  }
+
+  /* Focus rings — gold */
   :focus-visible {
-    outline: 2px solid #d4b43a;
+    outline: 2px solid var(--brand-gold);
     outline-offset: 3px;
-    border-radius: 4px;
-  }
-  /* ── RTL improvements ── */
-  [dir="rtl"] .gold-line::after { left: auto; right: 0; }
-  [dir="rtl"] .divider-gold { background: linear-gradient(270deg, #d4b43a, transparent); }
-
-  /* ── Prose Arabic ── */
-  [dir="rtl"] .prose-legal { font-family: 'Noto Kufi Arabic', sans-serif; }
-  [dir="rtl"] .prose-legal p { line-height: 1.9; }
-
-  /* ── Authority logos in hero ── */
-  .authority-logo {
-    @apply flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-3 py-2;
-  }
-  .authority-logo img { @apply h-6 w-auto; }
-  .authority-logo span { @apply text-xs text-white/80 font-medium; }
-
-  /* ── Section separator ── */
-  .section-sep {
-    @apply border-t border-navy-100;
+    border-radius: 6px;
   }
 
-  /* ── Key fact highlight box ── */
-  .key-fact {
-    @apply flex items-start gap-3 px-4 py-3 bg-navy-900 rounded-xl border-l-2 border-gold-400;
-  }
-  .key-fact-amber {
-    @apply flex items-start gap-3 px-4 py-3 bg-amber-50 rounded-xl border-l-2 border-amber-400;
-  }
-  [dir="rtl"] .key-fact { @apply border-l-0 border-r-2; }
-  [dir="rtl"] .key-fact-amber { @apply border-l-0 border-r-2; }
-
-  /* ── Step connector line ── */
-  .step-line {
-    @apply hidden md:block absolute top-5 left-1/2 w-full h-px;
-    background: linear-gradient(90deg, #d4b43a 0%, rgba(212,180,58,0.2) 100%);
+  /* Selection */
+  ::selection {
+    background-color: #E8D5A0;
+    color: #0F2137;
   }
 
+  /* RTL helpers */
+  [dir="rtl"] .flip       { transform: scaleX(-1); }
+  [dir="rtl"] .arrow-icon { transform: scaleX(-1); }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Component layer — reusable POA in 30 patterns
+   ───────────────────────────────────────────────────────────────────────────── */
 
 @layer components {
 
-  /* ── Gold underline ── */
-  .gold-line {
-    @apply relative inline-block pb-2;
-  }
-  .gold-line::after {
-    content: '';
-    @apply absolute bottom-0 left-0 h-0.5 rounded-full;
-    width: 2.5rem;
-    background: linear-gradient(90deg, #d4b43a, #e0c654 60%, transparent);
-  }
-  [dir="rtl"] .gold-line::after { @apply left-auto right-0; }
-
-  /* ── Section overline label (V4) ── */
-  .overline-label {
-    @apply text-[10px] font-bold uppercase tracking-[0.12em] text-gold-500;
+  /* ── Container ─────────────────────────────────────────────────────────── */
+  .wrap {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
   }
 
-  /* ── Hero background (V18 — deeper overlay for better text contrast) ── */
-  .hero-bg {
-    background-color: #060e1f;
-    background-image:
-      linear-gradient(135deg, rgba(6,14,31,.82) 0%, rgba(10,22,40,.65) 60%, rgba(15,32,64,.80) 100%),
-      url('/assets/hero/courts-bg.jpg');
-    background-size: cover;
-    background-position: center top;
-  }
+  /* ── Buttons — 6px radius, professional (not pill) ──────────────────────── */
 
-  /* ── Authority logos strip — always LTR regardless of page language ── */
-  .authority-logos-strip {
-    direction: ltr;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 20px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 font-medium;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    padding: 0.875rem 2rem;
+    background: var(--brand-midnight);
+    color: var(--text-inverse);
+    border-radius: var(--radius-btn);
+    letter-spacing: 0.02em;
+    transition: var(--transition-base);
   }
-  .authority-logos-strip::-webkit-scrollbar { display: none; }
-  .authority-logos-strip img {
-    height: 22px;
-    width: auto;
-    opacity: 0.55;
-    transition: opacity 0.2s ease;
-    flex-shrink: 0;
-    filter: brightness(0) invert(1);
+  .btn-primary:hover {
+    background: #1a3850;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(15, 33, 55, 0.2);
   }
-  .authority-logos-strip img:hover { opacity: 0.9; }
+  .btn-primary:active { transform: scale(0.98); }
 
-  /* ── WhatsApp float ── */
-  .wa-float {
-    @apply fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center;
-    background: linear-gradient(135deg, #25D366, #128C7E);
-    box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.3);
-    will-change: transform;
-    animation: wapPulse 3s ease-in-out infinite;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 font-medium;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    padding: 0.875rem 2rem;
+    background: var(--brand-slate);
+    color: var(--text-inverse);
+    border-radius: var(--radius-btn);
+    letter-spacing: 0.02em;
+    transition: var(--transition-base);
   }
-  [dir="rtl"] .wa-float { @apply right-auto left-6; }
-  .wa-float:hover {
-    transform: scale(1.1);
-    animation: none;
-    box-shadow: 0 6px 28px rgba(37,211,102,.6);
-  }
-
-  /* ── Service cards — premium edition ── */
-  .service-card {
-    @apply relative overflow-hidden rounded-2xl border border-navy-100 bg-white;
-    padding: 24px 24px 20px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  }
-  .service-card::before {
-    content: '';
-    @apply absolute top-0 left-0 right-0;
-    height: 3px;
-    background: linear-gradient(90deg, #d4b43a 0%, #e0c654 50%, transparent 100%);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
-  }
-  .service-card::after {
-    content: '';
-    @apply absolute top-3 right-4;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 64px;
-    font-weight: 900;
-    color: #f0f3f8;
-    line-height: 1;
-    pointer-events: none;
-    transition: color 0.2s ease;
-  }
-  .service-card:hover {
-    @apply -translate-y-1;
-    border-color: rgba(212,180,58,.4);
-    box-shadow: 0 16px 48px rgba(10,22,40,.10);
-  }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-card:hover::after { color: #e8ecf5; }
-
-  /* ── Dark service card — for navy bg sections ── */
-  .service-card-dark {
-    @apply relative overflow-hidden rounded-2xl bg-navy-800 p-6;
-    border: 1px solid rgba(42,74,114,.7);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  }
-  .service-card-dark::before {
-    content: '';
-    @apply absolute top-0 left-0 right-0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #d4b43a, transparent);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .service-card-dark:hover {
-    @apply -translate-y-1;
-    border-color: rgba(212,180,58,.45);
-    box-shadow: 0 12px 36px rgba(0,0,0,.3);
-  }
-  .service-card-dark:hover::before { opacity: 1; }
-
-  /* ── Language switcher ── */
-  .lang-btn {
-    @apply text-xs font-semibold px-2 py-1 rounded-md border border-transparent;
-    color: #6b93b5;
-    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-  }
-  .lang-btn:hover { @apply text-gold-500; border-color: rgba(212,180,58,.3); }
-  .lang-btn.active {
-    @apply text-gold-500;
-    border-color: #d4b43a;
-    background: rgba(212,180,58,.08);
-  }
-
-  /* ── Skip link ── */
-  .skip-link {
-    @apply absolute -top-10 left-0 bg-navy-900 text-gold-400 px-4 py-2 z-[10000];
-    transition: top 0.15s ease;
-  }
-  .skip-link:focus { @apply top-0; }
-
-  /* ── Badge pills ── */
-  .badge-gold {
-    @apply inline-flex items-center gap-1 bg-gold-400/10 border border-gold-400/30 text-gold-500 text-[11px] font-bold px-3 py-1.5 rounded-full;
-  }
-  .badge-green {
-    @apply inline-flex items-center gap-1 text-[11px] font-bold px-3 py-1.5 rounded-full border;
-    background: rgba(37,211,102,.08);
-    color: #25D366;
-    border-color: rgba(37,211,102,.25);
-  }
-  .badge-navy {
-    @apply inline-flex items-center gap-1 bg-navy-700 text-navy-300 text-[11px] px-3 py-1.5 rounded-full border border-navy-600;
-  }
-
-  /* ── Blog category badges (V4) ── */
-  .cat-poa    { @apply bg-blue-50   text-blue-700   border border-blue-100   text-[10px] font-bold px-2 py-0.5 rounded-full; }
-  .cat-attest { @apply bg-amber-50  text-amber-700  border border-amber-100  text-[10px] font-bold px-2 py-0.5 rounded-full; }
-  .cat-corp   { @apply bg-purple-50 text-purple-700 border border-purple-100 text-[10px] font-bold px-2 py-0.5 rounded-full; }
-  .cat-notice { @apply bg-red-50    text-red-700    border border-red-100    text-[10px] font-bold px-2 py-0.5 rounded-full; }
-  .cat-guide  { @apply bg-green-50  text-green-700  border border-green-100  text-[10px] font-bold px-2 py-0.5 rounded-full; }
-
-  /* ── Primary WA button ── */
-  .btn-wa {
-    @apply inline-flex items-center gap-2 text-white font-bold rounded-xl transition-colors text-sm;
-    background: #25D366;
-  }
-  .btn-wa:hover { background: #20b958; }
-
-  /* ── Trust item ── */
-  .trust-item { @apply flex items-center gap-2; }
-  .trust-item img { @apply h-5 w-auto opacity-60 transition-opacity; }
-  .trust-item:hover img { @apply opacity-90; }
-
-  /* ── CTA block ── */
-  .cta-block {
-    @apply rounded-2xl p-8 text-center;
-    background: #060e1f;
-    background-image:
-      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(212,180,58,.06) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(74,106,138,.08) 0%, transparent 70%);
-  }
-
-  /* ── Feature card (subsections) ── */
-  .feature-card {
-    @apply flex items-start gap-3 p-4 rounded-xl border border-navy-100;
-    background: #fafbff;
-    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
-  }
-  .feature-card:hover {
-    @apply bg-white border-navy-200;
+  .btn-secondary:hover {
+    background: #2a4758;
     transform: translateY(-1px);
   }
-  .feature-icon {
-    @apply mt-0.5 w-5 h-5 rounded-full flex items-center justify-center shrink-0;
-    background: rgba(212,180,58,.15);
-    border: 1px solid rgba(212,180,58,.25);
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 font-medium;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    padding: 0.875rem 2rem;
+    background: transparent;
+    color: var(--brand-midnight);
+    border: 1.5px solid var(--brand-midnight);
+    border-radius: var(--radius-btn);
+    letter-spacing: 0.02em;
+    transition: var(--transition-base);
+  }
+  .btn-outline:hover {
+    background: var(--brand-midnight);
+    color: var(--text-inverse);
   }
 
-  /* ── Hero stats divider row ── */
-  .hero-stats-row {
-    @apply flex flex-wrap gap-6 pt-5;
-    border-top: 1px solid rgba(255,255,255,.08);
+  /* Gold accent — use max one per page (hero gold variant) */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 font-medium;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    padding: 0.875rem 2rem;
+    background: var(--brand-gold);
+    color: var(--brand-midnight);
+    border-radius: var(--radius-btn);
+    letter-spacing: 0.02em;
+    transition: var(--transition-base);
   }
-  .hero-stat-item {
-    @apply flex items-center gap-2.5;
+  .btn-gold:hover {
+    background: #b8943c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.3);
   }
-  .hero-stat-num {
-    font-family: 'Playfair Display', Georgia, serif;
-    @apply text-2xl font-bold text-gold-400;
-    line-height: 1;
+  .btn-gold:active { transform: scale(0.98); }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 font-medium;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    padding: 0.625rem 1rem;
+    background: var(--bg-subtle);
+    color: var(--brand-midnight);
+    border-radius: var(--radius-btn);
+    transition: var(--transition-base);
   }
-  .hero-stat-label {
-    @apply text-xs text-navy-400 leading-tight;
-  }
-  .hero-stat-label strong {
-    @apply block text-white font-semibold text-xs;
-  }
-  .hero-stat-sep {
-    @apply w-px bg-navy-700 self-stretch;
+  .btn-ghost:hover { background: var(--border-default); }
+
+  /* ── Trust pill (hero kicker) ─────────────────────────────────────────── */
+  .pill-trust {
+    @apply inline-flex items-center gap-2 px-4 py-1.5;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--bg-subtle);
+    color: var(--brand-midnight);
+    border-radius: 999px;
   }
 
-  /* ── Blog card ── */
-  .blog-card {
-    @apply relative overflow-hidden rounded-2xl border border-navy-100 bg-white p-6;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  /* ── Service tile cards — white, gold hover border ─────────────────────── */
+  .tile {
+    background: white;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-card);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: var(--transition-base);
   }
-  .blog-card:hover {
-    @apply border-gold-400/40;
-    box-shadow: 0 8px 32px rgba(10,22,40,.1);
+  .tile:hover {
+    border-color: var(--brand-gold);
+    box-shadow: 0 4px 24px rgba(15, 33, 55, 0.08);
     transform: translateY(-2px);
   }
+  .tile-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0;
+    background: #FAF5E4;
+    color: var(--brand-gold);
+  }
+  .tile-title {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+  .tile-desc {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .tile-arrow {
+    @apply inline-flex items-center gap-1 text-sm font-medium mt-auto;
+    color: var(--brand-gold);
+  }
 
-  /* ── Prose for blog articles ── */
-  .prose-legal p  { @apply text-navy-600 text-sm leading-relaxed mb-4; }
-  .prose-legal h2 { @apply gold-line font-serif text-xl font-bold text-navy-900 mt-10 mb-4 pb-2 inline-block; }
-  .prose-legal h3 { @apply font-serif text-base font-bold text-navy-800 mt-6 mb-2; }
-  .prose-legal ul { @apply space-y-2 mb-4; }
-  .prose-legal ul li { @apply flex items-start gap-2 text-sm text-navy-600; }
+  /* ── Section headings ──────────────────────────────────────────────────── */
+  .h-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    color: var(--text-primary);
+    line-height: 1.05;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+  }
+  .h-section {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1.1;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .h-card {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+  .sub-display {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    @apply text-base sm:text-lg leading-relaxed max-w-2xl;
+    color: var(--text-muted);
+  }
 
-  /* ── FAQ accordion ── */
+  /* ── Step indicators (numbered circles) ──────────────────────────────── */
+  .step-num {
+    @apply w-10 h-10 rounded-full flex items-center justify-center text-sm flex-shrink-0;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 700;
+    background: var(--brand-midnight);
+    color: var(--text-inverse);
+  }
+
+  /* ── Info boxes (law / warn / info / success) ──────────────────────────── */
+  .box-info {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-base);
+    border: 1px solid var(--border-default);
+    border-inline-start: 3px solid var(--brand-gold);
+    border-radius: var(--radius-card);
+    color: var(--text-primary);
+  }
+  .box-warn {
+    padding: 1.25rem 1.5rem;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-inline-start: 3px solid #DC2626;
+    border-radius: var(--radius-card);
+    color: var(--text-primary);
+  }
+  .box-success {
+    padding: 1.25rem 1.5rem;
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-inline-start: 3px solid var(--success);
+    border-radius: var(--radius-card);
+    color: var(--text-primary);
+  }
+  .box-law {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-base);
+    border: 1px solid var(--border-default);
+    border-inline-start: 3px solid var(--brand-gold);
+    border-radius: var(--radius-card);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+  }
+  .box-law-label {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-gold);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Divider ───────────────────────────────────────────────────────────── */
+  .hr-soft {
+    border-top: 1px solid var(--border-default);
+  }
+
+  /* ── Prose: service page body copy ─────────────────────────────────────── */
+  .prose-poa {
+    @apply leading-relaxed;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: var(--text-secondary);
+  }
+  .prose-poa h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    @apply text-2xl sm:text-3xl font-normal mt-10 mb-4;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  .prose-poa h3 {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    @apply text-lg font-semibold mt-8 mb-3;
+    color: var(--text-primary);
+  }
+  .prose-poa p  { @apply mb-4 text-base leading-[1.75]; }
+  .prose-poa ul { @apply mb-4 ps-5 list-disc space-y-2; }
+  .prose-poa ol { @apply mb-4 ps-5 list-decimal space-y-2; }
+  .prose-poa a  {
+    @apply underline underline-offset-2 transition-colors;
+    color: var(--brand-midnight);
+  }
+  .prose-poa a:hover { color: var(--brand-gold); }
+  .prose-poa strong  { @apply font-semibold; color: var(--text-primary); }
+
+  [dir="rtl"] .prose-poa { @apply font-arab; line-height: var(--ar-line-height); }
+  [dir="rtl"] .prose-poa p  { line-height: 2; }
+  [dir="rtl"] .prose-poa h2 { line-height: 1.4; }
+
+  /* ── FAQ accordion — editorial borders, no card backgrounds ────────────── */
+  .faq-item {
+    border-top: 1px solid var(--border-default);
+  }
+  .faq-item:last-child {
+    border-bottom: 1px solid var(--border-default);
+  }
+  .faq-question {
+    @apply w-full flex items-center justify-between gap-4 py-5 text-start;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: color 0.18s ease;
+    background: transparent;
+  }
+  .faq-question:hover { color: var(--brand-gold); }
+  .faq-answer {
+    @apply pb-5;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
   .faq-body {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
+    transition: grid-template-rows 0.3s ease;
   }
-  .faq-body > * { min-height: 0; }
-  .faq-body.open { grid-template-rows: 1fr; }
-  .faq-chevron { transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; }
-  .faq-chevron.open { transform: rotate(180deg); }
+  .faq-body > div { overflow: hidden; }
+  .faq-body.open  { grid-template-rows: 1fr; }
 
-  /* ── Stat number ── */
-  .stat-num { @apply font-serif font-bold text-gold-400; }
+  /* ── Navbar ─────────────────────────────────────────────────────────────── */
+  .nav-link {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    @apply text-sm font-medium transition-colors;
+    color: var(--text-secondary);
+  }
+  .nav-link:hover { color: var(--brand-gold); }
 
-  /* ── Gold divider ── */
-  .divider-gold {
-    @apply h-px w-10;
-    background: linear-gradient(90deg, #d4b43a, transparent);
+  /* ── Footer ─────────────────────────────────────────────────────────────── */
+  .footer-heading {
+    @apply text-xs uppercase tracking-wider font-semibold mb-3;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #9CA3AF;
   }
+  .footer-link {
+    @apply text-sm transition-colors;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #D1D5DB;
+  }
+  .footer-link:hover { color: white; }
 
-  /* ── Selection color ── */
-  ::selection { background: rgba(212,180,58,.22); color: #0a1628; }
-  /* ── Trust badge (QR, video call) ── */
-  .trust-badge-new {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold;
-    background: rgba(212,180,58,.12);
-    color: #c9a227;
-    border: 1px solid rgba(212,180,58,.3);
-  }
-
-  /* ── Rich Content blocks ── */
-
-  /* Steps timeline */
-  .rich-content .step-circle {
-    @apply w-10 h-10 rounded-full bg-navy-900 border-2 border-gold-400 flex items-center justify-center shrink-0;
-  }
-
-  /* Warning / info / success callout boxes */
-  .rich-content .callout-warning {
-    @apply flex gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-4 my-4;
-    border-left-width: 4px;
-    border-left-color: #f59e0b;
-  }
-  .rich-content .callout-info {
-    @apply flex gap-3 bg-navy-50 border border-navy-200 rounded-xl px-4 py-4 my-4;
-    border-left-width: 4px;
-    border-left-color: #4a6a8a;
-  }
-  .rich-content .callout-success {
-    @apply flex gap-3 bg-green-50 border border-green-200 rounded-xl px-4 py-4 my-4;
-    border-left-width: 4px;
-    border-left-color: #22c55e;
-  }
-  .rich-content .callout-law {
-    @apply flex gap-3 bg-navy-900 rounded-xl px-4 py-4 my-4;
-    border-left-width: 4px;
-    border-left-color: #d4b43a;
-  }
-  [dir="rtl"] .rich-content .callout-warning,
-  [dir="rtl"] .rich-content .callout-info,
-  [dir="rtl"] .rich-content .callout-success,
-  [dir="rtl"] .rich-content .callout-law {
-    border-left-width: 0;
-    border-right-width: 4px;
+  /* ── WhatsApp floating button ──────────────────────────────────────────── */
+  .wa-float {
+    @apply fixed bottom-5 end-5 z-50
+           w-14 h-14 rounded-full bg-[#25D366] text-white
+           flex items-center justify-center hover:scale-105;
+    box-shadow: 0 4px 24px rgba(15, 33, 55, 0.08);
+    transition: var(--transition-base);
   }
 
-  /* Process cards grid */
-  .rich-content .process-grid {
-    @apply grid sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6;
+  /* ══════════════════════════════════════════════════════════════════════════
+     EDITORIAL SERIF SYSTEM
+     Cormorant Garamond (EN) · Amiri (AR)
+     ══════════════════════════════════════════════════════════════════════════ */
+
+  .h-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--text-primary);
   }
-  .rich-content .process-card {
-    @apply bg-navy-50 rounded-xl border border-navy-100 p-5;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+  [dir="rtl"] .h-serif { font-family: 'Amiri', serif; line-height: 1.15; }
+
+  .h-serif-hero {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text-primary);
+    font-size: clamp(2.5rem, 5vw, 4rem);
   }
-  .rich-content .process-card:hover {
-    @apply bg-white border-navy-200;
+  [dir="rtl"] .h-serif-hero {
+    font-family: 'Amiri', serif;
+    line-height: 1.15;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
   }
 
-  /* Comparison two-column */
-  .rich-content .compare-grid {
-    @apply grid sm:grid-cols-2 gap-4 my-6;
+  .h-serif-section {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--text-primary);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  [dir="rtl"] .h-serif-section {
+    font-family: 'Amiri', serif;
+    line-height: 1.2;
+    font-size: clamp(1.25rem, 2.75vw, 2rem);
   }
 
-  /* Stats row */
-  .rich-content .stats-grid {
-    @apply grid grid-cols-2 sm:grid-cols-3 gap-4 my-6;
-  }
-  .rich-content .stat-card {
-    @apply bg-navy-900 rounded-2xl p-5 text-center;
-  }
-
-  /* Table */
-  .rich-content .rich-table {
-    @apply w-full text-sm overflow-hidden;
-    border-collapse: collapse;
-  }
-  .rich-content .rich-table thead tr {
-    @apply bg-navy-900;
-  }
-  .rich-content .rich-table thead th {
-    @apply text-left px-4 py-3 text-gold-400 text-xs font-bold uppercase tracking-wider;
-  }
-  [dir="rtl"] .rich-content .rich-table thead th {
-    @apply text-right;
-  }
-  .rich-content .rich-table tbody tr:nth-child(even) {
-    @apply bg-navy-50;
-  }
-  .rich-content .rich-table tbody td {
-    @apply px-4 py-3 text-navy-700 leading-relaxed text-sm;
+  /* Gold italic accent — replaces coral on hero */
+  .h-serif-em {
+    color: var(--brand-gold);
+    font-style: italic;
+    font-weight: 600;
   }
 
-  /* Section divider */
-  .rich-content .rich-divider {
-    @apply my-8;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212,180,58,0.4), transparent);
+  /* Pre-title kicker — gold uppercase */
+  .kicker {
+    display: inline-block;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    margin-bottom: 1.25rem;
+  }
+  [dir="rtl"] .kicker { letter-spacing: 0.04em; text-transform: none; }
+
+  .kicker-dash::before { content: "— "; opacity: 0.7; }
+
+  /* Large serif numerals for step indicators — light gold */
+  .step-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--brand-gold-light);
+    font-size: clamp(3rem, 5vw, 5rem);
+  }
+  [dir="rtl"] .step-serif { font-family: 'Amiri', serif; }
+
+  /* Connector between steps */
+  .step-divider {
+    @apply hidden md:block w-px;
+    background: var(--border-default);
   }
 
-  /* Checklist */
-  .rich-content .checklist-box {
-    @apply my-4 bg-navy-50 rounded-2xl border border-navy-100 overflow-hidden;
+  /* ── Editorial FAQ row (borders only, no box backgrounds) ─────────────── */
+  .faq-row {
+    @apply w-full flex items-center justify-between gap-4 py-5
+           border-t last:border-b text-start font-medium text-sm sm:text-base;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 500;
+    border-color: var(--border-default);
+    color: var(--text-primary);
+    transition: color 0.18s ease;
   }
-  .rich-content .checklist-header {
-    @apply px-5 py-3 bg-navy-900 border-b border-navy-700;
+  .faq-row:hover { color: var(--brand-gold); }
+
+  /* ── Support tiles ─────────────────────────────────────────────────────── */
+  .support-tile       { @apply rounded-[12px] p-7 sm:p-8 flex flex-col gap-3 transition-all duration-200; }
+  .support-tile-dark  {
+    @apply rounded-[12px] p-7 sm:p-8 flex flex-col gap-3 transition-all duration-200;
+    background: var(--brand-midnight);
+    color: var(--text-inverse);
   }
-  .rich-content .checklist-item {
-    @apply flex items-start gap-3 px-5 py-3 border-b border-navy-100 last:border-0;
-  }
-  [dir="rtl"] .rich-content .checklist-item {
-    @apply flex-row-reverse;
+  .support-tile-light {
+    @apply rounded-[12px] p-7 sm:p-8 flex flex-col gap-3 transition-all duration-200;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
   }
 
+  /* ── Service tile — new white card with gold hover ────────────────────── */
+  .tile-editorial {
+    background: white;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-card);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: var(--transition-base);
+  }
+  .tile-editorial:hover {
+    border-color: var(--brand-gold);
+    box-shadow: 0 4px 24px rgba(15, 33, 55, 0.08);
+    transform: translateY(-2px);
+  }
+  .tile-editorial-title {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+  [dir="rtl"] .tile-editorial-title { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+  .tile-editorial-sub {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    margin-top: 0.125rem;
+  }
+  [dir="rtl"] .tile-editorial-sub { letter-spacing: 0.02em; text-transform: none; }
 
-
-
+  /* ── Trust logos strip ─────────────────────────────────────────────────── */
+  .trust-strip {
+    background: var(--bg-subtle);
+    padding: 1.5rem 0;
+  }
+  .trust-logo {
+    height: 2rem;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.45);
+    transition: var(--transition-base);
+  }
+  .trust-logo:hover { filter: grayscale(0%) opacity(1); }
 }
 
-/* ── Animations ── */
-@keyframes wapPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,.4), 0 0 0 0 rgba(37,211,102,.25); }
-  50%       { box-shadow: 0 4px 32px rgba(37,211,102,.6), 0 0 0 8px rgba(37,211,102,.0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fadein { animation: fadeIn 0.4s ease both; }
+/* ─────────────────────────────────────────────────────────────────────────────
+   Utility layer
+   ───────────────────────────────────────────────────────────────────────────── */
 
-/* #scrollTop removed — scroll-to-top is handled by FloatingWA.tsx (React) */
+@layer utilities {
+
+  .ms-auto { margin-inline-start: auto; }
+  .me-auto { margin-inline-end: auto; }
+
+  .bg-warm      { background-color: var(--bg-base); }
+  .bg-soft-sand { background-color: var(--bg-subtle); }
+
+  .bg-dots-soft {
+    background-image: radial-gradient(var(--border-default) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Hero — flat warm base (gradient removed per spec) */
+  .bg-hero-warm { background-color: var(--bg-base); }
+
+  /* Subtle diagonal texture for dark CTA sections */
+  .bg-texture-dark {
+    background-image: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px
+    );
+  }
+
+  /* Page entry animation */
+  .fade-in { animation: fadeUp 0.4s ease forwards; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Anti-copy / Anti-scrape protection
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  input, textarea, select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  .selectable,
+  a[href^="tel:"],
+  a[href^="mailto:"],
+  a[href*="wa.me"],
+  .copy-allowed,
+  .copy-allowed * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  img, svg, picture, video {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: auto;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Print protection
+   ───────────────────────────────────────────────────────────────────────────── */
+@media print {
+  body * { visibility: hidden !important; }
+  body::before {
+    content: "© POA in 30 — Content protected. Visit https://www.poain30.ae to view.";
+    visibility: visible !important;
+    display: block !important;
+    position: fixed !important;
+    inset: 50% 0 auto 0 !important;
+    transform: translateY(-50%) !important;
+    text-align: center !important;
+    font-family: serif !important;
+    font-size: 18pt !important;
+    color: #0F2137 !important;
+    padding: 2rem !important;
+  }
+  header, footer, nav, aside, [aria-label="Floating WhatsApp"], button {
+    display: none !important;
+  }
+}
+
+/* Honeypot link — visually hidden, irresistible to crawlers */
+.honeypot-trap {
+  position: absolute !important;
+  left: -10000px !important;
+  top: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

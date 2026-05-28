@@ -1,7 +1,12 @@
 import content from '@/data/content.json'
 
-export type Lang = 'en' | 'ar' | 'ru' | 'zh' | 'es'
-export const LANGS: Lang[] = ['en', 'ar', 'ru', 'zh', 'es']
+// ─────────────────────────────────────────────────────────────────────────────
+// POA in 30 — i18n (EN + AR only)
+// Simplified from E-Notary Dubai's 5-language setup: RU, ZH, ES removed.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type Lang = 'en' | 'ar'
+export const LANGS: Lang[] = ['en', 'ar']
 export const DEFAULT_LANG: Lang = 'en'
 
 export function isValidLang(lang: string): lang is Lang {
@@ -13,9 +18,7 @@ export function getDir(lang: Lang): 'ltr' | 'rtl' {
 }
 
 export function getFontClass(lang: Lang): string {
-  if (lang === 'ar') return 'font-arab'
-  if (lang === 'zh') return 'font-zh'
-  return 'font-sans'
+  return lang === 'ar' ? 'font-arab' : 'font-sans'
 }
 
 /** Get text in the current language, fall back to EN, then AR */
@@ -33,35 +36,31 @@ export function generateLangParams() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Hreflang helpers — Chinese requires script subtag (zh-Hans) for proper
-// Google indexing of Simplified Chinese targeting Chinese investors in Dubai.
+// Hreflang — EN and AR targeted at UAE + x-default
 // ─────────────────────────────────────────────────────────────────────────────
 export const HREFLANG_MAP: Record<Lang, string> = {
   en: 'en-AE',
   ar: 'ar-AE',
-  ru: 'ru-AE',
-  zh: 'zh-Hans-AE',
-  es: 'es-AE',
 }
 
-/** Get the hreflang code for a given language (e.g. 'zh' -> 'zh-Hans-AE') */
 export function getHreflang(lang: Lang): string {
   return HREFLANG_MAP[lang]
 }
 
-/** Build the alternates.languages object for a given URL path.
- *  Path should start with '/' and end with '/' (e.g. '/about/'). */
+/** Build alternates.languages for a URL path. Path must start and end with '/'. */
 export function buildHreflangAlternates(path: string): Record<string, string> {
-  const base = 'https://www.enotarydubai.ae'
-  return Object.fromEntries(
-    LANGS.map((l) => [HREFLANG_MAP[l], `${base}/${l}${path}`])
-  )
+  const base = 'https://www.poain30.ae'
+  const alternates: Record<string, string> = {}
+  for (const l of LANGS) {
+    alternates[HREFLANG_MAP[l]] = `${base}/${l}${path}`
+  }
+  // x-default points to English as the canonical fallback
+  alternates['x-default'] = `${base}/en${path}`
+  return alternates
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RichBlock — Union type defined HERE as the single source of truth.
-// All components that render rich content should import RichBlock from i18n,
-// NOT from a sibling component, to avoid circular-import TypeScript errors.
+// RichBlock — union type for all rich-content blocks used in pages
 // ─────────────────────────────────────────────────────────────────────────────
 export type RichBlock =
   | { type: 'heading';   text: Record<string, string> }
@@ -79,16 +78,13 @@ export type RichBlock =
   | { type: 'divider' }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FaqItem
+// FaqItem (EN + AR only)
 // ─────────────────────────────────────────────────────────────────────────────
-
-/** Normalized FAQ item with all 5 languages */
 export interface FaqItem {
-  q: { en: string; ar: string; ru: string; zh: string; es: string }
-  a: { en: string; ar: string; ru: string; zh: string; es: string }
+  q: { en: string; ar: string }
+  a: { en: string; ar: string }
 }
 
-/** Normalize a raw FAQ entry (may have only en/ar) into a full FaqItem */
 export function normalizeFaqItem(item: {
   q: Record<string, string>
   a: Record<string, string>
@@ -97,54 +93,41 @@ export function normalizeFaqItem(item: {
     q: {
       en: item.q['en'] || '',
       ar: item.q['ar'] || '',
-      ru: item.q['ru'] || item.q['en'] || '',
-      zh: item.q['zh'] || item.q['en'] || '',
-      es: item.q['es'] || item.q['en'] || '',
     },
     a: {
       en: item.a['en'] || '',
       ar: item.a['ar'] || '',
-      ru: item.a['ru'] || item.a['en'] || '',
-      zh: item.a['zh'] || item.a['en'] || '',
-      es: item.a['es'] || item.a['en'] || '',
     },
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PageContent type — matches the real shape in content.json exactly
+// PageContent shape (matches content.json)
 // ─────────────────────────────────────────────────────────────────────────────
 interface PageContent {
   h1_en?: string
   h1_ar?: string
   title_en?: string
   meta_en?: string
-  /** Each item is a 5-lang map e.g. { en, ar, ru, zh, es } */
   sections?: Array<Record<string, string>>
   subsections?: Array<Record<string, string>>
   content?: Array<Record<string, string>>
   list_items?: Array<Record<string, string>>
-  /** price rows — shape varies per page, keep loose */
-  prices?: Array<Record<string, unknown>>
   rich_blocks?: RichBlock[]
   faq?: Array<{ q: Record<string, string>; a: Record<string, string> }>
-  /** Catch-all for per-lang title/meta keys like title_ar, meta_ru, etc. */
   [key: string]: unknown
 }
 
-/** Get page-specific content from content.json */
 export function getPageContent(url: string): PageContent | null {
   const pc = content.page_content as Record<string, PageContent>
   return pc[url] ?? pc[url + '/'] ?? null
 }
 
-/** Get page FAQ normalized to FaqItem[] */
 export function getPageFaq(url: string): FaqItem[] {
   const pc = getPageContent(url)
   return (pc?.faq ?? []).map(normalizeFaqItem)
 }
 
-/** Get per-service FAQ normalized to FaqItem[] */
 export function getServiceFaq(key: string): FaqItem[] {
   const map = content.faq_services as Record<
     string,
@@ -153,19 +136,16 @@ export function getServiceFaq(key: string): FaqItem[] {
   return (map[key] ?? []).map(normalizeFaqItem)
 }
 
-/** Get required docs for a service */
 export function getRequiredDocs(key: string): Array<Record<string, string>> {
   const map = content.required_docs as Record<string, Array<Record<string, string>>>
   return map[key] ?? []
 }
 
-/** Get rich_blocks for a page — type-safe, no `any` */
 export function getPageBlocks(url: string): RichBlock[] {
   const pc = getPageContent(url)
   return (pc?.rich_blocks ?? []) as RichBlock[]
 }
 
-/** Get multilingual page metadata (title + description) */
 export function getPageMeta(
   slug: string,
   lang: string,
@@ -178,7 +158,7 @@ export function getPageMeta(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Typed top-level exports — import directly from i18n instead of content.json
+// Typed top-level exports
 // ─────────────────────────────────────────────────────────────────────────────
 export const site         = content.site
 export const languages    = content.languages
@@ -192,6 +172,9 @@ export const faq          = content.faq
 
 export const ui_buttons = content.ui_buttons as Record<string, Record<string, string>>
 
+// NOTE: POA in 30 does NOT display prices anywhere — pricing is quote-based.
+// The pricing export is kept for backwards compatibility but intentionally
+// unused on any rendered page. Do not surface this in UI.
 export const pricing = content.pricing as Record<
   string,
   Array<{ service: Record<string, string>; href: string }>
