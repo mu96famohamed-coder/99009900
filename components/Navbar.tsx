@@ -228,7 +228,6 @@ export default function Navbar({ lang }: Props) {
                       />
                       <div
                         className="absolute top-full mt-2 rounded-xl shadow-tile z-50 p-6"
-                        style={{ backgroundColor: 'var(--bg-base)', border: '1px solid var(--border-default)' }}
                         style={{
                           width: item.cols.length >= 3
                             ? 'min(820px, calc(100vw - 2rem))'

@@ -219,7 +219,7 @@ function CompareBlock({ block, lang }: { block: Extract<RichBlock, {type:'compar
         <div className="px-5 py-3" style={{background:'var(--bg-subtle)'}}>
           <p className="text-xs font-bold uppercase tracking-wider" style={{color:'var(--text-secondary)', fontFamily:'DM Sans, system-ui, sans-serif'}}>{t(block.right.title, lang)}</p>
         </div>
-        <ul className="divide-y" style={{divideColor:'var(--border-default)', background:'white'}}>
+        <ul className="divide-y" style={{background:'white', borderColor:'var(--border-default)'}}>
           {block.right.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3 px-5 py-3" style={{borderBottom: i < block.right.items.length - 1 ? '1px solid var(--border-default)' : 'none'}}>
               <span className="mt-0.5 shrink-0" style={{color:'var(--brand-gold)'}}>
